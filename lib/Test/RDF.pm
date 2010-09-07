@@ -5,6 +5,11 @@ use strict;
 
 use Carp;
 use Text::Diff;
+use RDF::Trine;
+use RDF::Trine::Parser;
+use RDF::Trine::Model;
+use RDF::Trine::Graph;
+use RDF::Trine::Serializer::NTriples::Canonical;
 
 use base 'Test::Builder::Module';
 our @EXPORT = qw/is_rdf is_valid_rdf/;
@@ -37,7 +42,7 @@ our $VERSION = '0.01';
 
 =head2 is_valid_rdf
 
-Use to check if the input RDF is valid in the chosen syntax
+Use to check if the input RDF string is valid in the chosen syntax
 
 =cut
 
@@ -58,6 +63,53 @@ sub is_valid_rdf {
         return 1;
     }
 }
+
+
+=head2 is_rdf
+
+Use to check if the input RDF strings are isomorphic (i.e. the same)
+
+=cut
+
+
+sub is_rdf {
+    my ($rdf1, $syntax1, $rdf2, $syntax2, $name) = @_;
+    my $parser1 = RDF::Trine::Parser->new($syntax1);
+    my $test = __PACKAGE__->builder;
+
+    # First, test if the input RDF is OK
+    my $model1 = RDF::Trine::Model->temporary_model;
+    eval {
+        $parser1->parse_into_model('http://example.org/', $rdf1, $model1);
+    };
+    if ( my $error = $@ ) {
+        $test->ok( 0, $name );
+        $test->diag("Input was not valid RDF:\n\n\t$error");
+        return;
+    }
+
+    # If the expected RDF is non-valid, don't catch the exception
+    my $parser2 = RDF::Trine::Parser->new($syntax2);
+    my $model2 = RDF::Trine::Model->temporary_model;
+    $parser2->parse_into_model('http://example.org/', $rdf2, $model2);
+
+    my $g1 = RDF::Trine::Graph->new( $model1 );
+    my $g2 = RDF::Trine::Graph->new( $model2 );
+
+    if ($g1->equals($g2)) {
+        $test->ok( 1, $name );
+        return 1;
+    } else {
+        $test->ok( 0, $name );
+        my $serializer = RDF::Trine::Serializer::NTriples->new;
+        $test->diag('Graphs differ:');
+        $test->diag(diff \$serializer->serialize_model_to_string($model1),
+                         \$serializer->serialize_model_to_string($model2),
+                    { STYLE => "Table" });
+        return;
+    }
+}
+
 
 
 =head1 AUTHOR

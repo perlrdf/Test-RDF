@@ -6,9 +6,10 @@ readme_from 'lib/Test/RDF.pm';
 author   q{Kjetil Kjernsmo <kjetilk@cpan.org>};
 license  'perl';
 
-test_requires 'Test::More';
-
-requires 'RDF::Trine'			=> 0.125;
+requires 'Test::More';
+requires 'Test::Builder::Module';
+requires 'Text::Diff::Table';
+requires 'RDF::Trine';
 
 author_tests('xt');
 
