@@ -46,7 +46,7 @@ sub is_valid_rdf {
     my $parser = RDF::Trine::Parser->new($syntax);
     my $test = __PACKAGE__->builder;
     eval {
-        $parser->parse('http://example.org/', $rdf, $name);
+        $parser->parse('http://example.org/', $rdf);
     };
     if ( my $error = $@ ) {
         $test->ok( 0, $name );
