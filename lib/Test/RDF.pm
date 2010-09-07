@@ -12,7 +12,7 @@ use RDF::Trine::Graph;
 use RDF::Trine::Serializer::NTriples::Canonical;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/is_rdf is_valid_rdf/;
+our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs/;
 
 
 
@@ -92,9 +92,22 @@ sub is_rdf {
     my $parser2 = RDF::Trine::Parser->new($syntax2);
     my $model2 = RDF::Trine::Model->temporary_model;
     $parser2->parse_into_model('http://example.org/', $rdf2, $model2);
+    return isomorph_graphs($model1, $model2, $name);
+}
 
+
+=head2 isomorph_graphs
+
+Use to check if the input RDF::Trine::Models have isomorphic graphs
+
+=cut
+
+
+sub isomorph_graphs {
+    my ($model1, $model2, $name) = @_;
     my $g1 = RDF::Trine::Graph->new( $model1 );
     my $g2 = RDF::Trine::Graph->new( $model2 );
+    my $test = __PACKAGE__->builder;
 
     if ($g1->equals($g2)) {
         $test->ok( 1, $name );
