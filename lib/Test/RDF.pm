@@ -3,9 +3,17 @@ package Test::RDF;
 use warnings;
 use strict;
 
+use Carp;
+use Text::Diff;
+
+use base 'Test::Builder::Module';
+our @EXPORT = qw/is_rdf is_valid_rdf/;
+
+
+
 =head1 NAME
 
-Test::RDF - The great new Test::RDF!
+Test::RDF - Test RDF data
 
 =head1 VERSION
 
@@ -18,35 +26,39 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+ use Test::RDF;
 
-Perhaps a little code snippet.
+ is_valid_rdf $rdf_string, $syntax,  'RDF string is valid according to selected syntax';
+ is_rdf       $rdf_string, $syntax1, $expected_rdf_string, $syntax2, 'The two strings have the same triples';
+ isomorph_graphs $model, $expected_model, 'The two models have the same triples'
 
-    use Test::RDF;
-
-    my $foo = Test::RDF->new();
-    ...
 
 =head1 EXPORT
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+=head2 is_valid_rdf
 
-=head1 SUBROUTINES/METHODS
-
-=head2 function1
+Use to check if the input RDF is valid in the chosen syntax
 
 =cut
 
-sub function1 {
+sub is_valid_rdf {
+    my ($rdf, $syntax, $name) = @_;
+    my $parser = RDF::Trine::Parser->new($syntax);
+    my $test = __PACKAGE__->builder;
+    eval {
+        $parser->parse('http://example.org/', $rdf, $name);
+    };
+    if ( my $error = $@ ) {
+        $test->ok( 0, $name );
+        $test->diag("Input was not valid RDF:\n\n\t$error");
+        return;
+    }
+    else {
+        $test->ok( 1, $name );
+        return 1;
+    }
 }
 
-=head2 function2
-
-=cut
-
-sub function2 {
-}
 
 =head1 AUTHOR
 
