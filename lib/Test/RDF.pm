@@ -101,7 +101,7 @@ sub is_rdf {
         return 1;
     } else {
         $test->ok( 0, $name );
-        my $serializer = RDF::Trine::Serializer::NTriples->new;
+        my $serializer = RDF::Trine::Serializer::NTriples::Canonical->new;
         $test->diag('Graphs differ:');
         $test->diag(diff \$serializer->serialize_model_to_string($model1),
                          \$serializer->serialize_model_to_string($model2),
