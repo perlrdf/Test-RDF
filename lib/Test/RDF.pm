@@ -22,11 +22,11 @@ Test::RDF - Test RDF data
 
 =head1 VERSION
 
-Version 0.01
+Version 0.10
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.10';
 
 
 =head1 SYNOPSIS
@@ -135,9 +135,6 @@ Please report any bugs or feature requests to C<bug-test-rdf at rt.cpan.org>, or
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-RDF>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
-
-
-
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
@@ -170,10 +167,14 @@ L<http://search.cpan.org/dist/Test-RDF/>
 
 =head1 ACKNOWLEDGEMENTS
 
+Michael Hendricks wrote the first Test::RDF. The present module is a
+complete rewrite from scratch using Gregory Todd William's
+L<RDF::Trine::Graph> to do the heavy lifting.
+
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010 Kjetil Kjernsmo.
+Copyright 2010 ABC Startsiden AS.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
