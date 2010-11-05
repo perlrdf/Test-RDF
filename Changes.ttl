@@ -15,12 +15,12 @@
 my:project	 
     a           :Project ;
     :name       "Test-RDF" ;
-    :shortdesc  "Base class and scripts for servers that serve RDF as Linked Data."@en ;
+    :shortdesc  "Test RDF data for validity and equality."@en ;
     :created    "2010-09-03"^^xsd:date ;
     :programming-language "Perl" ;
     :maintainer <http://www.kjetil.kjernsmo.net/foaf#me> ;
     :bug-database <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-RDF> ;
-    :release    my:v_0_10 .
+    :release    my:v_0_10, my:v_0_03 .
 
 
 <http://www.kjetil.kjernsmo.net/foaf#me>
@@ -31,10 +31,24 @@ my:project
 
 my:v_0_10
     a           :Version ;
-    dc:issued   "2010-09-03"^^xsd:date ;
-    rdfs:label "Initial release."@en ;
+    dc:issued   "2010-11-06"^^xsd:date ;
+    rdfs:label "Complete rewrite."@en ;
     :revision   "0.10"^^xsd:string ;
     dcs:changeset [
       dcs:item
-        [ rdfs:label "Initial release."@en ; a dcs:Change ] 
+        [ rdfs:label "A complete rewrite from scratch using RDF::Trine."@en ; a dcs:Change ] 
+        [ rdfs:label "Backwards incompatible with previous releases."@en ; a dcs:Change ] 
     ] .
+
+
+my:v_0_03
+    a           :Version ;
+    dc:issued   "2006-13-04"^^xsd:date ;
+    rdfs:label "Michael Hendricks old release based on RDF::Redland."@en ;
+    :revision   "0.0.3"^^xsd:string ;
+    dc:creator <http://purl.org/NET/cpan-uri/person/mndrix> .
+
+
+<http://purl.org/NET/cpan-uri/person/mndrix>
+    a           foaf:Person ;
+    foaf:name   "Michael Hendricks"@en .
