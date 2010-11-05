@@ -108,6 +108,7 @@ sub isomorph_graphs {
     my $g1 = RDF::Trine::Graph->new( $model1 );
     my $g2 = RDF::Trine::Graph->new( $model2 );
     my $test = __PACKAGE__->builder;
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
 
     if ($g1->equals($g2)) {
         $test->ok( 1, $name );
