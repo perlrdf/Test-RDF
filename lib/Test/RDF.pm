@@ -18,7 +18,7 @@ our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs/;
 
 =head1 NAME
 
-Test::RDF - Test RDF data
+Test::RDF - for validity and equality
 
 =head1 VERSION
 
@@ -175,7 +175,7 @@ L<RDF::Trine::Graph> to do the heavy lifting.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010 ABC Startsiden AS.
+Copyright 2010 ABC Startsiden AS and Kjetil Kjernsmo.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published

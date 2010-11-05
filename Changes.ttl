@@ -36,7 +36,7 @@ my:v_0_10
     :revision   "0.10"^^xsd:string ;
     dcs:changeset [
       dcs:item
-        [ rdfs:label "A complete rewrite from scratch using RDF::Trine."@en ; a dcs:Change ] 
+        [ rdfs:label "A complete rewrite from scratch using RDF::Trine."@en ; a dcs:Change ] ,
         [ rdfs:label "Backwards incompatible with previous releases."@en ; a dcs:Change ] 
     ] .
 
