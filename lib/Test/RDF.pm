@@ -76,6 +76,7 @@ sub is_rdf {
     my ($rdf1, $syntax1, $rdf2, $syntax2, $name) = @_;
     my $parser1 = RDF::Trine::Parser->new($syntax1);
     my $test = __PACKAGE__->builder;
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
 
     # First, test if the input RDF is OK
     my $model1 = RDF::Trine::Model->temporary_model;
@@ -108,7 +109,6 @@ sub isomorph_graphs {
     my $g1 = RDF::Trine::Graph->new( $model1 );
     my $g2 = RDF::Trine::Graph->new( $model2 );
     my $test = __PACKAGE__->builder;
-    local $Test::Builder::Level = $Test::Builder::Level + 1;
 
     if ($g1->equals($g2)) {
         $test->ok( 1, $name );
