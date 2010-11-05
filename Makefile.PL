@@ -11,6 +11,8 @@ requires 'Test::Builder::Module';
 requires 'Text::Diff::Table';
 requires 'RDF::Trine';
 
+test_requires 'Test::Tester';
+
 author_tests('xt');
 
 auto_set_repository;
