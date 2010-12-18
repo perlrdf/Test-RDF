@@ -12,7 +12,7 @@ use RDF::Trine::Graph;
 use RDF::Trine::Serializer::NTriples::Canonical;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject/;
+our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate/;
 
 
 
@@ -137,6 +137,13 @@ sub has_subject {
   my $count = $model->count_statements(RDF::Trine::Node::Resource->new($uri), undef, undef);
   return _single_uri_tests($count, $name);
 }
+
+sub has_predicate {
+  my ($uri, $model, $name) = @_;
+  my $count = $model->count_statements(undef, RDF::Trine::Node::Resource->new($uri), undef);
+  return _single_uri_tests($count, $name);
+}
+
 
 sub _single_uri_tests {
   my ($count, $name) = @_;
