@@ -12,7 +12,7 @@ use RDF::Trine::Graph;
 use RDF::Trine::Serializer::NTriples::Canonical;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri/;
+our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri/;
 
 
 
@@ -165,6 +165,29 @@ sub has_object_uri {
   my ($uri, $model, $name) = @_;
   my $count = $model->count_statements(undef, undef, RDF::Trine::Node::Resource->new($uri));
   return _single_uri_tests($count, $name);
+}
+
+
+=head2 has_uri
+
+Check if the string URI passed as first argument is present in any of
+the statements given in the model given as second argument.
+
+=cut
+
+sub has_uri {
+  my ($uri, $model, $name) = @_;
+  my $test = __PACKAGE__->builder;
+  if ($model->count_statements(undef, undef, RDF::Trine::Node::Resource->new($uri)) > 0
+      || $model->count_statements(undef, RDF::Trine::Node::Resource->new($uri), undef) > 0
+      || $model->count_statements(RDF::Trine::Node::Resource->new($uri), undef, undef) > 0) {
+    $test->ok( 1, $name );
+    return 1;
+  } else {
+    $test->ok( 0, $name );
+    $test->diag('No matching URIs found in model');
+    return 0;
+  }
 }
 
 
