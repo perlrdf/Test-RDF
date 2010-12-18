@@ -12,7 +12,7 @@ use RDF::Trine::Graph;
 use RDF::Trine::Serializer::NTriples::Canonical;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate/;
+our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri/;
 
 
 
@@ -37,6 +37,8 @@ our $VERSION = '0.2';
  is_rdf       $rdf_string, $syntax1, $expected_rdf_string, $syntax2, 'The two strings have the same triples';
  isomorph_graphs $model, $expected_model, 'The two models have the same triples'
  has_subject($uri_string, $model, 'Subject URI is found');
+ has_predicate($uri_string, $model, 'Predicate URI is found');
+ has_object_uri($uri_string, $model, 'Object URI is found');
 
 
 =head1 EXPORT
@@ -138,9 +140,30 @@ sub has_subject {
   return _single_uri_tests($count, $name);
 }
 
+
+=head2 has_predicate
+
+Check if the string URI passed as first argument is a predicate in any
+of the statements given in the model given as second argument.
+
+=cut
+
 sub has_predicate {
   my ($uri, $model, $name) = @_;
   my $count = $model->count_statements(undef, RDF::Trine::Node::Resource->new($uri), undef);
+  return _single_uri_tests($count, $name);
+}
+
+=head2 has_object_uri
+
+Check if the string URI passed as first argument is a object in any
+of the statements given in the model given as second argument.
+
+=cut
+
+sub has_object_uri {
+  my ($uri, $model, $name) = @_;
+  my $count = $model->count_statements(undef, undef, RDF::Trine::Node::Resource->new($uri));
   return _single_uri_tests($count, $name);
 }
 
