@@ -12,7 +12,7 @@ use RDF::Trine::Graph;
 use RDF::Trine::Serializer::NTriples::Canonical;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs/;
+our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject/;
 
 
 
@@ -36,6 +36,7 @@ our $VERSION = '0.2';
  is_valid_rdf $rdf_string, $syntax,  'RDF string is valid according to selected syntax';
  is_rdf       $rdf_string, $syntax1, $expected_rdf_string, $syntax2, 'The two strings have the same triples';
  isomorph_graphs $model, $expected_model, 'The two models have the same triples'
+ has_subject($uri_string, $model, 'Subject URI is found');
 
 
 =head1 EXPORT
@@ -124,6 +125,27 @@ sub isomorph_graphs {
     }
 }
 
+=head2 has_subject
+
+Check if the string URI passed as first argument is a subject in any
+of the statements given in the model given as second argument.
+
+=cut
+
+sub has_subject {
+  my ($uri, $model, $name) = @_;
+  my $count = $model->count_statements(RDF::Trine::Node::Resource->new($uri), undef, undef);
+  my $test = __PACKAGE__->builder;
+  if ($count > 0) {
+    $test->ok( 1, $name );
+    return 1;
+  } else {
+    $test->ok( 0, $name );
+    $test->diag('No matching URIs found in model');
+    return 0;
+  }
+
+}
 
 
 =head1 AUTHOR
