@@ -135,7 +135,13 @@ of the statements given in the model given as second argument.
 sub has_subject {
   my ($uri, $model, $name) = @_;
   my $count = $model->count_statements(RDF::Trine::Node::Resource->new($uri), undef, undef);
+  return _single_uri_tests($count, $name);
+}
+
+sub _single_uri_tests {
+  my ($count, $name) = @_;
   my $test = __PACKAGE__->builder;
+  local $Test::Builder::Level = $Test::Builder::Level + 1;
   if ($count > 0) {
     $test->ok( 1, $name );
     return 1;
@@ -144,8 +150,9 @@ sub has_subject {
     $test->diag('No matching URIs found in model');
     return 0;
   }
-
 }
+
+
 
 
 =head1 AUTHOR
