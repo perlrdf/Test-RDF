@@ -12,7 +12,7 @@ use RDF::Trine::Graph;
 use RDF::Trine::Serializer::NTriples::Canonical;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri/;
+our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri has_literal/;
 
 
 
@@ -166,6 +166,36 @@ sub has_object_uri {
   my $count = $model->count_statements(undef, undef, RDF::Trine::Node::Resource->new($uri));
   return _single_uri_tests($count, $name);
 }
+
+=head2 has_literal
+
+Check if the string passed as first argument is a object in any
+of the statements given in the model given as second argument.
+
+=cut
+
+sub has_literal {
+  my ($string, $lang, $datatype, $model, $name) = @_;
+  my $literal;
+  my $test = __PACKAGE__->builder;
+  eval {
+    $literal = RDF::Trine::Node::Literal->new($string, $lang, $datatype);
+  };
+  if ( my $error = $@ ) {
+    $test->ok( 0, $name );
+    $test->diag("Invalid literal:\n\n\t$error");
+    return;
+  }
+
+#  local $Test::Builder::Level = $Test::Builder::Level + 1;
+  if ($model->count_statements(undef, undef, $literal) > 0) {
+    $test->ok( 1, $name );
+    return 1;
+  } else {
+    $test->ok( 0, $name );
+    $test->diag('No matching literals found in model');
+    return 0;
+  }}
 
 
 =head2 has_uri
