@@ -39,6 +39,7 @@ our $VERSION = '0.2';
  has_subject($uri_string, $model, 'Subject URI is found');
  has_predicate($uri_string, $model, 'Predicate URI is found');
  has_object_uri($uri_string, $model, 'Object URI is found');
+ has_literal($string, $language, $datatype, $model, 'Literal is found');
 
 
 =head1 EXPORT
@@ -169,8 +170,24 @@ sub has_object_uri {
 
 =head2 has_literal
 
-Check if the string passed as first argument is a object in any
-of the statements given in the model given as second argument.
+Check if the string passed as first argument, with corresponding
+optional language and datatype as second and third respectively, is a
+literal in any of the statements given in the model given as fourth
+argument.
+
+language and datatype may not occur in the same statement, so the test
+fails if they are both set. If none are used, use C<undef>, like e.g.
+
+ has_literal('A test', undef, undef, $model, 'Simple literal');
+
+A test for a typed literal may be done like
+
+ has_literal('42', undef, 'http://www.w3.org/2001/XMLSchema#integer', $model, 'Just an integer');
+
+and a language literal like
+
+ has_literal('This is a Another test', 'en', undef, $model, 'Language literal');
+
 
 =cut
 
