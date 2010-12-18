@@ -20,7 +20,7 @@ my:project
     :programming-language "Perl" ;
     :maintainer <http://www.kjetil.kjernsmo.net/foaf#me> ;
     :bug-database <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-RDF> ;
-    :release    my:v_0_10, my:v_0_03 .
+    :release    my:v_0_20, my:v_0_11, my:v_0_10, my:v_0_03 .
 
 
 <http://www.kjetil.kjernsmo.net/foaf#me>
@@ -65,4 +65,19 @@ my:v_0_11
         [ rdfs:label "Fix the tainting problem many cpantesters have."@en ; a dcs:Change ] ,
         [ rdfs:label "Small cosmetic changes."@en ; a dcs:Change ] ,
         [ rdfs:label "Got authorized!."@en ; a dcs:Change ] 
+    ] .
+
+my:v_0_20
+    a           :Version ;
+    dc:issued   "2010-12-18"^^xsd:date ;
+    rdfs:label "Add functions for testing resources and literals."@en ;
+    :revision   "0.20"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Check Redland error messages in addition to Turtle."@en ; a dcs:Change ] ,
+        [ rdfs:label "has_subject function to test if a URI is present as subject."@en ; a dcs:Addition ] ,
+        [ rdfs:label "has_predicate function to test if a URI is present as predicate."@en ; a dcs:Addition ] ,
+        [ rdfs:label "has_object_uri function to test if a URI is present as object."@en ; a dcs:Addition ] ,
+	[ rdfs:label "has_uri function to test if a URI is present at all in the graph."@en ; a dcs:Addition ] ,
+        [ rdfs:label "has_literal function to test if a literal is present."@en ; a dcs:Addition ] 
     ] .

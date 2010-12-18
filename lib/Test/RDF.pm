@@ -18,15 +18,15 @@ our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate h
 
 =head1 NAME
 
-Test::RDF - Test RDF data for validity and equality
+Test::RDF - Test RDF data for content, validity and equality
 
 =head1 VERSION
 
-Version 0.2
+Version 0.20
 
 =cut
 
-our $VERSION = '0.2';
+our $VERSION = '0.20';
 
 
 =head1 SYNOPSIS
