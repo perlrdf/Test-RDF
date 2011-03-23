@@ -4,12 +4,10 @@ use warnings;
 use strict;
 
 use Carp;
-use Text::Diff;
 use RDF::Trine;
 use RDF::Trine::Parser;
 use RDF::Trine::Model;
 use RDF::Trine::Graph;
-use RDF::Trine::Serializer::NTriples::Canonical;
 
 use base 'Test::Builder::Module';
 our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri has_literal/;
@@ -22,11 +20,11 @@ Test::RDF - Test RDF data for content, validity and equality
 
 =head1 VERSION
 
-Version 0.20
+Version 0.21_1
 
 =cut
 
-our $VERSION = '0.20';
+our $VERSION = '0.21_1';
 
 
 =head1 SYNOPSIS
@@ -119,11 +117,8 @@ sub isomorph_graphs {
         return 1;
     } else {
         $test->ok( 0, $name );
-        my $serializer = RDF::Trine::Serializer::NTriples::Canonical->new;
         $test->diag('Graphs differ:');
-        $test->diag(diff \$serializer->serialize_model_to_string($model1),
-                         \$serializer->serialize_model_to_string($model2),
-                    { STYLE => "Table" });
+        $test->diag($g1->error);
         return;
     }
 }

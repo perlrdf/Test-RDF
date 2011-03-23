@@ -31,7 +31,7 @@ check_test(
 	   {
 	    ok => 0,
 	    name => 'Compare Turtle exact matches, with error',
-	    diag => "Graphs differ:\n+--+-----------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+\n* 1|<http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a Another test\"\@en .  |<http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a test\"\@en .  *\n+--+-----------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+"
+	    diag => "Graphs differ:\nnon-blank triples don't match: \$VAR1 = '(triple <http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a Another test\"\@en)';\n\$VAR2 = '(triple <http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a test\"\@en)';"
 	   }
 );
 
@@ -43,6 +43,6 @@ check_test(
 	   {
 	    ok => 0,
 	    name => 'Compare RDF/XML and Turtle, with error',
-	    diag => "Graphs differ:\n+--+-----------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+\n* 1|<http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a Another test\"\@en .  |<http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a test\"\@en .  *\n+--+-----------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+"
+	    diag => "Graphs differ:\nnon-blank triples don't match: \$VAR1 = '(triple <http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a Another test\"\@en)';\n\$VAR2 = '(triple <http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a test\"\@en)';"
 	   }
 );

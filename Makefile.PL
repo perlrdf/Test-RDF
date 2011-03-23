@@ -10,8 +10,7 @@ test_requires 'Test::Tester';
 
 requires 'Test::More';
 requires 'Test::Builder::Module';
-requires 'Text::Diff::Table';
-requires 'RDF::Trine';
+requires 'RDF::Trine' => '0.133_01';
 
 author_tests('xt');
 
