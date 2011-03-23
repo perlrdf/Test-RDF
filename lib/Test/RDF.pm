@@ -304,7 +304,7 @@ L<RDF::Trine::Graph> to do the heavy lifting.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010 ABC Startsiden AS and Kjetil Kjernsmo.
+Copyright 2010 ABC Startsiden AS and 2010-2011 Kjetil Kjernsmo.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
