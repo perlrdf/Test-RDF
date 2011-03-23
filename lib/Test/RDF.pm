@@ -10,7 +10,7 @@ use RDF::Trine::Model;
 use RDF::Trine::Graph;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri has_literal/;
+our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri has_literal/;
 
 
 
@@ -119,6 +119,28 @@ sub isomorph_graphs {
         $test->ok( 0, $name );
         $test->diag('Graphs differ:');
         $test->diag($g1->error);
+        return;
+    }
+}
+
+=head2 are_subgraphs
+
+Use to check if the first RDF::Trine::Models is a subgraph of the second.
+
+=cut
+
+sub are_subgraphs {
+    my ($model1, $model2, $name) = @_;
+    my $g1 = RDF::Trine::Graph->new( $model1 );
+    my $g2 = RDF::Trine::Graph->new( $model2 );
+    my $test = __PACKAGE__->builder;
+
+    if ($g1->is_subgraph_of($g2)) {
+        $test->ok( 1, $name );
+        return 1;
+    } else {
+        $test->ok( 0, $name );
+        $test->diag('Hint: There are ' . $model1->size . ' statement(s) in model1 and ' . $model2->size . ' statement(s) in model2');
         return;
     }
 }
