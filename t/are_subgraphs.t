@@ -1,4 +1,4 @@
-use Test::Tester tests => 45;
+use Test::Tester tests => 52;
 
 use Test::RDF;
 
@@ -30,6 +30,24 @@ check_test(
 	    ok => 0,
 	    name => 'Compare Turtle with extra in model1',
 	    diag => "Hint: There are 2 statement(s) in model1 and 1 statement(s) in model2"
+	   }
+);
+
+
+check_test(
+	   sub {
+	     my $model1 = RDF::Trine::Model->temporary_model;
+	     my $model2 = RDF::Trine::Model->temporary_model;
+	     my $parser = RDF::Trine::Parser->new( 'turtle' );
+	     $parser->parse_into_model( 'http://example.org', '</foo> <http://www.w3.org/2000/01/rdf-schema#label> "This is a Another test"@en ; <http://www.w3.org/2000/01/rdf-schema#comment> "With more" .', $model1);
+	     $parser->parse_into_model( 'http://example.org', '</foo> <http://www.w3.org/2000/01/rdf-schema#foo> "This is a Another test"@en ; <http://www.w3.org/2000/01/rdf-schema#comment> "With other" .', $model2);
+
+	     are_subgraphs($model1, $model2, 'Compare Turtle with extra in both' );
+	   },
+	   {
+	    ok => 0,
+	    name => 'Compare Turtle with extra in both',
+	    diag => "Hint: There are 2 statement(s) in model1 and 2 statement(s) in model2"
 	   }
 );
 
