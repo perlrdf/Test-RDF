@@ -69,7 +69,7 @@ sub is_valid_rdf {
 
 =head2 is_rdf
 
-Use to check if the input RDF strings are isomorphic (i.e. the same)
+Use to check if the input RDF strings are isomorphic (i.e. the same).
 
 =cut
 
@@ -101,7 +101,7 @@ sub is_rdf {
 
 =head2 isomorph_graphs
 
-Use to check if the input RDF::Trine::Models have isomorphic graphs
+Use to check if the input RDF::Trine::Models have isomorphic graphs.
 
 =cut
 
@@ -270,6 +270,11 @@ sub _single_uri_tests {
 }
 
 
+=head1 NOTE
+
+Graph isomorphism is a complex problem, so do not attempt to run the
+isomorphism tests on large datasets. For more information see
+L<http://en.wikipedia.org/wiki/Graph_isomorphism_problem>.
 
 
 =head1 AUTHOR
