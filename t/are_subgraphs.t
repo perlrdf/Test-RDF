@@ -29,7 +29,7 @@ check_test(
 	   {
 	    ok => 0,
 	    name => 'Compare Turtle with extra in model1',
-	    diag => "Hint: There are 2 statement(s) in model1 and 1 statement(s) in model2"
+	    diag => "Graph not subgraph: invocant had too many blank node statements to be a subgraph of argument\nHint: There are 2 statement(s) in model1 and 1 statement(s) in model2"
 	   }
 );
 

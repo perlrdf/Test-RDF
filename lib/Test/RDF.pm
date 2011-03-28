@@ -140,6 +140,7 @@ sub are_subgraphs {
         return 1;
     } else {
         $test->ok( 0, $name );
+	$test->diag('Graph not subgraph: ' . $g1->error) if defined($g1->error);
         $test->diag('Hint: There are ' . $model1->size . ' statement(s) in model1 and ' . $model2->size . ' statement(s) in model2');
         return;
     }
