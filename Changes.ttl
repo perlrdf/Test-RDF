@@ -20,7 +20,7 @@ my:project
     :programming-language "Perl" ;
     :maintainer <http://www.kjetil.kjernsmo.net/foaf#me> ;
     :bug-database <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-RDF> ;
-    :release    my:v_0_20, my:v_0_11, my:v_0_10, my:v_0_03 .
+    :release    my:v_0_22, my:v_0_20, my:v_0_11, my:v_0_10, my:v_0_03 .
 
 
 <http://www.kjetil.kjernsmo.net/foaf#me>
@@ -80,4 +80,17 @@ my:v_0_20
         [ rdfs:label "has_object_uri function to test if a URI is present as object."@en ; a dcs:Addition ] ,
 	[ rdfs:label "has_uri function to test if a URI is present at all in the graph."@en ; a dcs:Addition ] ,
         [ rdfs:label "has_literal function to test if a literal is present."@en ; a dcs:Addition ] 
+    ] .
+
+my:v_0_22
+    a           :Version ;
+    dc:issued   "2011-04-01"^^xsd:date ;
+    rdfs:label "Subgraph tests."@en ;
+    :revision   "0.22"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Use the RDF::Graph::Trine error function for diagnostics"@en ; a dcs:Addition ] ,
+        [ rdfs:label "Remove the now unneeded dependency on Text::Diff::Table."@en ; a dcs:Removal ] ,
+        [ rdfs:label "Add a are_subgraphs function for testing if one graph is a subgraph of another."@en ; a dcs:Addition ] ,
+        [ rdfs:label "More documentation."@en ; a dcs:Addition ]
     ] .
