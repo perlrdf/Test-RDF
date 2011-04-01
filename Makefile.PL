@@ -10,7 +10,7 @@ test_requires 'Test::Tester';
 
 requires 'Test::More';
 requires 'Test::Builder::Module';
-requires 'RDF::Trine' => '0.133_01';
+requires 'RDF::Trine' => '0.134';
 
 author_tests('xt');
 

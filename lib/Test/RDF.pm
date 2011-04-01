@@ -16,15 +16,15 @@ our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject h
 
 =head1 NAME
 
-Test::RDF - Test RDF data for content, validity and equality
+Test::RDF - Test RDF data for content, validity and equality, etc.
 
 =head1 VERSION
 
-Version 0.21_1
+Version 0.22
 
 =cut
 
-our $VERSION = '0.21_1';
+our $VERSION = '0.22';
 
 
 =head1 SYNOPSIS
@@ -34,6 +34,7 @@ our $VERSION = '0.21_1';
  is_valid_rdf $rdf_string, $syntax,  'RDF string is valid according to selected syntax';
  is_rdf       $rdf_string, $syntax1, $expected_rdf_string, $syntax2, 'The two strings have the same triples';
  isomorph_graphs $model, $expected_model, 'The two models have the same triples'
+ are_subgraphs($model1, $model2, 'Model 1 is a subgraph of model 2' );
  has_subject($uri_string, $model, 'Subject URI is found');
  has_predicate($uri_string, $model, 'Predicate URI is found');
  has_object_uri($uri_string, $model, 'Object URI is found');
