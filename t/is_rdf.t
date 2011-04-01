@@ -1,4 +1,4 @@
-use Test::Tester tests => 26;
+use Test::Tester tests => 39;
 
 use Test::RDF;
 
@@ -46,3 +46,27 @@ check_test(
 	    diag => "Graphs differ:\nnon-blank triples don't match: \$VAR1 = '(triple <http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a Another test\"\@en)';\n\$VAR2 = '(triple <http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a test\"\@en)';"
 	   }
 );
+
+TODO: {
+local $TODO = "TODO";
+check_test(
+	   sub {
+	     isnt_rdf('</foo> <http://www.w3.org/2000/01/rdf-schema#label> "This is a Another test"@en .', 'turtle','</foo> <http://www.w3.org/2000/01/rdf-schema#label> "This is a Another test"@en .', 'turtle', 'Compare Turtle exact matches that shouldnt be' );
+	   },
+	   {
+	    ok => 0,
+	    name => 'Compare Turtle exact matches that shouldnt be',
+	    diag => "Graphs are equal."
+	   }
+);
+
+check_test(
+	   sub {
+	     is_rdf('</foo> <http://www.w3.org/2000/01/rdf-schema#label> "This is a Another test"@en .', 'turtle','</foo> <http://www.w3.org/2000/01/rdf-schema#label> "This is a test"@en .', 'turtle', 'Compare Turtle with error' );
+	   },
+	   {
+	    ok => 1,
+	    name => 'Compare Turtle with error',
+	   }
+);
+}

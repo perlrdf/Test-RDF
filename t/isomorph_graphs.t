@@ -1,4 +1,4 @@
-use Test::Tester tests => 26;
+use Test::Tester tests => 39;
 
 use Test::RDF;
 
@@ -69,3 +69,38 @@ check_test(
 	    diag => "Graphs differ:\nnon-blank triples don't match: \$VAR1 = '(triple <http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a Another test\"\@en)';\n\$VAR2 = '(triple <http://example.org/foo> <http://www.w3.org/2000/01/rdf-schema#label> \"This is a test\"\@en)';"
 	   }
 );
+
+TODO: {
+local $TODO = "TODO";
+check_test(
+	   sub {
+	     my $model1 = RDF::Trine::Model->temporary_model;
+	     my $model2 = RDF::Trine::Model->temporary_model;
+	     my $parser = RDF::Trine::Parser->new( 'turtle' );
+	     $parser->parse_into_model( 'http://example.org', '</foo> <http://www.w3.org/2000/01/rdf-schema#label> "This is a Another test"@en .', $model1);
+	     $parser->parse_into_model( 'http://example.org', '</foo> <http://www.w3.org/2000/01/rdf-schema#label> "This is a Another test"@en .', $model2);
+	     nonisomorph_graphs($model1, $model2, 'Compare Turtle exact matches that shouldnt be' );
+	   },
+	   {
+	    ok => 0,
+	    name => 'Compare Turtle exact matches that shouldnt be',
+	    diag => "Graphs are equal."
+	   }
+);
+
+
+check_test(
+	   sub {
+	     my $model1 = RDF::Trine::Model->temporary_model;
+	     my $model2 = RDF::Trine::Model->temporary_model;
+	     my $parser = RDF::Trine::Parser->new( 'turtle' );
+	     $parser->parse_into_model( 'http://example.org', '</foo> <http://www.w3.org/2000/01/rdf-schema#label> "This is a Another test"@en .', $model1);
+	     $parser->parse_into_model( 'http://example.org', '</foo> <http://www.w3.org/2000/01/rdf-schema#label> "This is a test"@en .', $model2);
+	     nonisomorph_graphs($model1, $model2, 'Compare Turtle with error' );
+	   },
+	   {
+	    ok => 1,
+	    name => 'Compare Turtle with error',
+	   }
+);
+}
