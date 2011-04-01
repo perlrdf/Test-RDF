@@ -74,6 +74,10 @@ sub is_valid_rdf {
 
 Use to check if the input RDF strings are isomorphic (i.e. the same).
 
+=head2 isnt_rdf
+
+Use to check if the input RDF strings aren't isomorphic (i.e. not the same).
+
 =cut
 
 
@@ -125,6 +129,29 @@ sub isomorph_graphs {
         return;
     }
 }
+
+=head2 nonisomorph_graphs
+
+Use to check if the input RDF::Trine::Models does not have isomorphic graphs.
+
+=cut
+
+sub nonisomorph_graphs {
+    my ($model1, $model2, $name) = @_;
+    my $g1 = RDF::Trine::Graph->new( $model1 );
+    my $g2 = RDF::Trine::Graph->new( $model2 );
+    my $test = __PACKAGE__->builder;
+
+    if ($g1->equals($g2)) {
+        $test->ok( 0, $name );
+        $test->diag('Graphs are equal.');
+        return 0;
+    } else {
+        $test->ok( 1, $name );
+        return 1;
+    }
+}
+
 
 =head2 are_subgraphs
 
