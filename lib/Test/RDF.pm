@@ -51,8 +51,13 @@ Use to check if the input RDF string is valid in the chosen syntax
 
 sub is_valid_rdf {
     my ($rdf, $syntax, $name) = @_;
-    my $parser = RDF::Trine::Parser->new($syntax);
     my $test = __PACKAGE__->builder;
+    unless ($rdf) {
+      $test->ok( 0, $name );
+      $test->diag("No input was given.");
+      return;
+    }
+    my $parser = RDF::Trine::Parser->new($syntax);
     eval {
         $parser->parse('http://example.org/', $rdf, sub {});
     };
@@ -77,8 +82,13 @@ Use to check if the input RDF strings are isomorphic (i.e. the same).
 
 sub is_rdf {
     my ($rdf1, $syntax1, $rdf2, $syntax2, $name) = @_;
-    my $parser1 = RDF::Trine::Parser->new($syntax1);
     my $test = __PACKAGE__->builder;
+    unless ($rdf1) {
+      $test->ok( 0, $name );
+      $test->diag("No input was given.");
+      return;
+    }
+    my $parser1 = RDF::Trine::Parser->new($syntax1);
     local $Test::Builder::Level = $Test::Builder::Level + 1;
 
     # First, test if the input RDF is OK

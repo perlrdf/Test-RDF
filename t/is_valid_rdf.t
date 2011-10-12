@@ -1,4 +1,4 @@
-use Test::Tester tests => 16;
+use Test::Tester tests => 23;
 use Test::More;
 use Test::RDF;
 
@@ -9,6 +9,17 @@ check_test(
 	   {
 	    ok => 1,
 	    name => 'Valid turtle'
+	   }
+);
+
+check_test(
+	   sub {
+	     is_valid_rdf('', 'turtle', 'Pass empty string' );
+	   },
+	   {
+	    ok => 0,
+	    name => 'Pass empty string',
+	    diag => 'No input was given.'
 	   }
 );
 
