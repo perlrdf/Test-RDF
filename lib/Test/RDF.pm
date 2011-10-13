@@ -282,34 +282,47 @@ sub _single_uri_tests {
 }
 
 {
-        my $target;
-        sub pattern_target
-        {
-                my $t = shift;
-                ok(blessed($t) && $t->isa('RDF::Trine::Model'),
-                        'Data is an RDF::Trine::Model.');
-                $target = $t;
-        }
-        sub pattern_ok
-        {
-                my $message = pop @_;
-                my $pattern = RDF::Trine::Pattern->new(@_);
-                my $iter    = $target->get_pattern($pattern);
-                while (my $row = $iter->next) {
-                        pass $message;
-                        return;
-                }
-                fail $message;
-        }
+  my $target;
+  sub pattern_target {
+    my ($t, $name) = @_;
+    my $test = __PACKAGE__->builder;
+    if (blessed($t) && $t->isa('RDF::Trine::Model')) {
+      $test->ok(1, $name);
+      $test->diag('Data is an RDF::Trine::Model.');
+      $target = $t;
+      return 1;
+    } else {
+      $test->ok(0, $name);
+      $test->diag('Data is not an RDF::Trine::Model.');
+      return 0;
+    }
+  }
+
+  sub pattern_ok {
+    my $name = pop @_;
+    my $test = __PACKAGE__->builder;
+    my $pattern = RDF::Trine::Pattern->new(@_);
+    my $iter    = $target->get_pattern($pattern);
+    my $i = 1;
+    while (my $row = $iter->next) {
+      $test->ok(1, $name);
+      $test->diag("Row $i in pattern ok");
+      return 1; # TODO: don't grok
+    }
+    $test->ok(0, $name);
+    return 0;
+  }
 }
 
-Usage:
+=head2 Pattern matching
 
-        # Tests that $model is an RDF::Trine::Model and sets the target
-        # for subsequent pattern_ok tests.
+Tests that $model is an RDF::Trine::Model and sets the target
+for subsequent pattern_ok tests.
+
         pattern_target($model);
 
-        # Checks that the target contains triples matching the pattern.
+Checks that the target contains triples matching the pattern.
+
         pattern_ok(
                 statement($ex->document, $DC->title, literal('Foo')),
                 statement($ex->document, $DC->creator, literal('Joe')),
