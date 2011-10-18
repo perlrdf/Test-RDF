@@ -303,13 +303,13 @@ sub _single_uri_tests {
     my $test = __PACKAGE__->builder;
     my $pattern = RDF::Trine::Pattern->new(@_);
     my $iter    = $target->get_pattern($pattern);
-    my $i = 1;
     while (my $row = $iter->next) {
       $test->ok(1, $name);
-      $test->diag("Row $i in pattern ok");
+      $test->diag("Pattern can be iterated ok.");
       return 1; # TODO: don't grok
     }
     $test->ok(0, $name);
+    $test->diag("Pattern cannot be iterated.");
     return 0;
   }
 }
