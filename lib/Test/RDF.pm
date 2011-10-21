@@ -51,26 +51,26 @@ Use to check if the input RDF string is valid in the chosen syntax
 =cut
 
 sub is_valid_rdf {
-    my ($rdf, $syntax, $name) = @_;
-    my $test = __PACKAGE__->builder;
-    unless ($rdf) {
-      $test->ok( 0, $name );
-      $test->diag("No input was given.");
-      return;
-    }
-    my $parser = RDF::Trine::Parser->new($syntax);
-    eval {
-        $parser->parse('http://example.org/', $rdf, sub {});
-    };
-    if ( my $error = $@ ) {
-        $test->ok( 0, $name );
-        $test->diag("Input was not valid RDF:\n\n\t$error");
-        return;
-    }
-    else {
-        $test->ok( 1, $name );
-        return 1;
-    }
+  my ($rdf, $syntax, $name) = @_;
+  my $test = __PACKAGE__->builder;
+  unless ($rdf) {
+    $test->ok( 0, $name );
+    $test->diag("No input was given.");
+    return;
+  }
+  my $parser = RDF::Trine::Parser->new($syntax);
+  eval {
+    $parser->parse('http://example.org/', $rdf, sub {});
+  };
+  if ( my $error = $@ ) {
+    $test->ok( 0, $name );
+    $test->diag("Input was not valid RDF:\n\n\t$error");
+    return;
+  }
+  else {
+    $test->ok( 1, $name );
+    return 1;
+  }
 }
 
 
@@ -82,32 +82,32 @@ Use to check if the input RDF strings are isomorphic (i.e. the same).
 
 
 sub is_rdf {
-    my ($rdf1, $syntax1, $rdf2, $syntax2, $name) = @_;
-    my $test = __PACKAGE__->builder;
-    unless ($rdf1) {
-      $test->ok( 0, $name );
-      $test->diag("No input was given.");
-      return;
-    }
-    my $parser1 = RDF::Trine::Parser->new($syntax1);
-    local $Test::Builder::Level = $Test::Builder::Level + 1;
+  my ($rdf1, $syntax1, $rdf2, $syntax2, $name) = @_;
+  my $test = __PACKAGE__->builder;
+  unless ($rdf1) {
+    $test->ok( 0, $name );
+    $test->diag("No input was given.");
+    return;
+  }
+  my $parser1 = RDF::Trine::Parser->new($syntax1);
+  local $Test::Builder::Level = $Test::Builder::Level + 1;
 
-    # First, test if the input RDF is OK
-    my $model1 = RDF::Trine::Model->temporary_model;
-    eval {
-        $parser1->parse_into_model('http://example.org/', $rdf1, $model1);
-    };
-    if ( my $error = $@ ) {
-        $test->ok( 0, $name );
-        $test->diag("Input was not valid RDF:\n\n\t$error");
-        return;
-    }
+  # First, test if the input RDF is OK
+  my $model1 = RDF::Trine::Model->temporary_model;
+  eval {
+    $parser1->parse_into_model('http://example.org/', $rdf1, $model1);
+  };
+  if ( my $error = $@ ) {
+    $test->ok( 0, $name );
+    $test->diag("Input was not valid RDF:\n\n\t$error");
+    return;
+  }
 
-    # If the expected RDF is non-valid, don't catch the exception
-    my $parser2 = RDF::Trine::Parser->new($syntax2);
-    my $model2 = RDF::Trine::Model->temporary_model;
-    $parser2->parse_into_model('http://example.org/', $rdf2, $model2);
-    return isomorph_graphs($model1, $model2, $name);
+  # If the expected RDF is non-valid, don't catch the exception
+  my $parser2 = RDF::Trine::Parser->new($syntax2);
+  my $model2 = RDF::Trine::Model->temporary_model;
+  $parser2->parse_into_model('http://example.org/', $rdf2, $model2);
+  return isomorph_graphs($model1, $model2, $name);
 }
 
 
@@ -300,7 +300,7 @@ a list of RDF::Trine::Statement objects.
  use Test::RDF;
  use RDF::Trine qw[iri literal blank variable statement];
  use My::Module;
- 
+
  my $foaf = RDF::Trine::Namespace->new('http://xmlns.com/foaf/0.1/');
  pattern_target(My::Module->get_model); # check isa RDF::Trine::Model
  pattern_ok(
@@ -419,6 +419,7 @@ Michael Hendricks wrote the first Test::RDF. The present module is a
 complete rewrite from scratch using Gregory Todd William's
 L<RDF::Trine::Graph> to do the heavy lifting.
 
+Toby Inkster has submitted the pattern_* functions.
 
 =head1 LICENSE AND COPYRIGHT
 
