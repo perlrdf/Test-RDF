@@ -8,6 +8,7 @@ license  'perl';
 
 test_requires 'Test::Tester';
 
+requires 'Scalar::Util';
 requires 'Test::More';
 requires 'Test::Builder::Module';
 requires 'RDF::Trine' => '0.134';

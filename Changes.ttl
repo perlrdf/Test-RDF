@@ -20,7 +20,7 @@ my:project
     :programming-language "Perl" ;
     :maintainer <http://www.kjetil.kjernsmo.net/foaf#me> ;
     :bug-database <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-RDF> ;
-    :release    my:v_0_22, my:v_0_20, my:v_0_11, my:v_0_10, my:v_0_03 .
+    :release    my:v_0_24, my:v_0_22, my:v_0_20, my:v_0_11, my:v_0_10, my:v_0_03 .
 
 
 <http://www.kjetil.kjernsmo.net/foaf#me>
@@ -94,3 +94,21 @@ my:v_0_22
         [ rdfs:label "Add a are_subgraphs function for testing if one graph is a subgraph of another."@en ; a dcs:Addition ] ,
         [ rdfs:label "More documentation."@en ; a dcs:Addition ]
     ] .
+
+my:v_0_24
+    a           :Version ;
+    dc:issued   "2011-10-10"^^xsd:date ;
+    rdfs:label "Pattern tests."@en ;
+    :revision   "0.24"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Test for empty RDF strings"@en ; a dcs:Addition ] ,
+        [ rdfs:label "Parser may need an empty sub sometimes."@en ; a dcs:Bugfix ] ,
+        [ rdfs:label "New pattern_ok and pattern_target functions."@en ; a dcs:Addition ; 
+	  dcs:blame <http://tobyinkster.co.uk/#i> ] ,
+        [ rdfs:label "Minor cosmetics."@en ; a dcs:Addition ]
+    ] .
+
+<http://tobyinkster.co.uk/#i>	a               foaf:Person ;
+				foaf:homepage   <http://tobyinkster.co.uk/> ;
+				foaf:name       "Toby Inkster" .
