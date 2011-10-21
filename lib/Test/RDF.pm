@@ -342,7 +342,8 @@ B<Note:> C<pattern_target> must have been tested before any C<pattern_ok> tests.
     }
   }
   sub pattern_ok {
-    my $message = pop @_ if !ref $_[-1];
+    my $message = undef;
+    $message = pop @_ if !ref $_[-1];
     unless (defined $message and length $message) {
       $message = "Pattern match";
     }
