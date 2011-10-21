@@ -8,10 +8,10 @@ use RDF::Trine;
 use RDF::Trine::Parser;
 use RDF::Trine::Model;
 use RDF::Trine::Graph;
+use Scalar::Util qw/blessed/;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri has_literal/;
-
+our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri has_literal pattern_target pattern_ok/;
 
 
 =head1 NAME
@@ -20,11 +20,11 @@ Test::RDF - Test RDF data for content, validity and equality, etc.
 
 =head1 VERSION
 
-Version 0.22
+Version 0.23
 
 =cut
 
-our $VERSION = '0.22';
+our $VERSION = '0.23';
 
 
 =head1 SYNOPSIS
@@ -39,7 +39,8 @@ our $VERSION = '0.22';
  has_predicate($uri_string, $model, 'Predicate URI is found');
  has_object_uri($uri_string, $model, 'Object URI is found');
  has_literal($string, $language, $datatype, $model, 'Literal is found');
-
+ pattern_target($model);
+ pattern_ok($pattern, '$pattern found in $model');
 
 =head1 EXPORT
 
@@ -118,20 +119,20 @@ Use to check if the input RDF::Trine::Models have isomorphic graphs.
 
 
 sub isomorph_graphs {
-    my ($model1, $model2, $name) = @_;
-    my $g1 = RDF::Trine::Graph->new( $model1 );
-    my $g2 = RDF::Trine::Graph->new( $model2 );
-    my $test = __PACKAGE__->builder;
+  my ($model1, $model2, $name) = @_;
+  my $g1 = RDF::Trine::Graph->new( $model1 );
+  my $g2 = RDF::Trine::Graph->new( $model2 );
+  my $test = __PACKAGE__->builder;
 
-    if ($g1->equals($g2)) {
-        $test->ok( 1, $name );
-        return 1;
-    } else {
-        $test->ok( 0, $name );
-        $test->diag('Graphs differ:');
-        $test->diag($g1->error);
-        return;
-    }
+  if ($g1->equals($g2)) {
+    $test->ok( 1, $name );
+    return 1;
+  } else {
+    $test->ok( 0, $name );
+    $test->diag('Graphs differ:');
+    $test->diag($g1->error);
+    return;
+  }
 }
 
 =head2 are_subgraphs
@@ -141,20 +142,20 @@ Use to check if the first RDF::Trine::Models is a subgraph of the second.
 =cut
 
 sub are_subgraphs {
-    my ($model1, $model2, $name) = @_;
-    my $g1 = RDF::Trine::Graph->new( $model1 );
-    my $g2 = RDF::Trine::Graph->new( $model2 );
-    my $test = __PACKAGE__->builder;
+  my ($model1, $model2, $name) = @_;
+  my $g1 = RDF::Trine::Graph->new( $model1 );
+  my $g2 = RDF::Trine::Graph->new( $model2 );
+  my $test = __PACKAGE__->builder;
 
-    if ($g1->is_subgraph_of($g2)) {
-        $test->ok( 1, $name );
-        return 1;
-    } else {
-        $test->ok( 0, $name );
-	$test->diag('Graph not subgraph: ' . $g1->error) if defined($g1->error);
-        $test->diag('Hint: There are ' . $model1->size . ' statement(s) in model1 and ' . $model2->size . ' statement(s) in model2');
-        return;
-    }
+  if ($g1->is_subgraph_of($g2)) {
+    $test->ok( 1, $name );
+    return 1;
+  } else {
+    $test->ok( 0, $name );
+    $test->diag('Graph not subgraph: ' . $g1->error) if defined($g1->error);
+    $test->diag('Hint: There are ' . $model1->size . ' statement(s) in model1 and ' . $model2->size . ' statement(s) in model2');
+    return;
+  }
 }
 
 =head2 has_subject
@@ -233,7 +234,7 @@ sub has_literal {
     return;
   }
 
-#  local $Test::Builder::Level = $Test::Builder::Level + 1;
+  #local $Test::Builder::Level = $Test::Builder::Level + 1;
   if ($model->count_statements(undef, undef, $literal) > 0) {
     $test->ok( 1, $name );
     return 1;
@@ -241,7 +242,8 @@ sub has_literal {
     $test->ok( 0, $name );
     $test->diag('No matching literals found in model');
     return 0;
-  }}
+  }
+}
 
 
 =head2 has_uri
@@ -280,6 +282,88 @@ sub _single_uri_tests {
     return 0;
   }
 }
+
+=head2 pattern_target
+
+Tests that the object passed as its parameter is an RDF::Trine::Model or
+RDF::Trine::Store. That is, tests that it is a valid thing to match basic
+graph patterns against.
+
+Additionally, this test establishes the target for future C<pattern_ok> tests.
+
+=head2 pattern_ok
+
+Tests that the pattern passed matches against the target established by
+C<pattern_target>. The pattern may be passed as an RDF::Trine::Pattern, or
+a list of RDF::Trine::Statement objects.
+
+ use Test::RDF;
+ use RDF::Trine qw[iri literal blank variable statement];
+ use My::Module;
+ 
+ my $foaf = RDF::Trine::Namespace->new('http://xmlns.com/foaf/0.1/');
+ pattern_target(My::Module->get_model); # check isa RDF::Trine::Model
+ pattern_ok(
+   statement(
+     variable('who'),
+     $foaf->name,
+     literal('Kjetil Kjernsmo')
+     ),
+   statement(
+     variable('who'),
+     $foaf->page,
+     iri('http://search.cpan.org/~kjetilk/')
+     ),
+   "Data contains Kjetil's details."
+   );
+
+B<Note:> C<pattern_target> must have been tested before any C<pattern_ok> tests.
+
+=cut
+
+{ # scope for $target
+  my $target;
+  sub pattern_target {
+    my $t = shift;
+    my $test = __PACKAGE__->builder;
+    if (blessed($t) && $t->isa('RDF::Trine::Model')) {
+      $target = $t;
+      $test->ok(1, 'Data is an RDF::Trine::Model.');
+      return 1;
+    }
+    elsif (blessed($t) && $t->isa('RDF::Trine::Store')) {
+      $target = $t;
+      $test->ok(1, 'Data is an RDF::Trine::Store.');
+      return 1;
+    }
+    else {
+      $test->ok(0, 'Data is not an RDF::Trine::Model or RDF::Trine::Store.');
+      return 0;
+    }
+  }
+  sub pattern_ok {
+    my $message = pop @_ if !ref $_[-1];
+    unless (defined $message and length $message) {
+      $message = "Pattern match";
+    }
+    my $test = __PACKAGE__->builder;
+    unless (blessed($target)) {
+      $test->ok(0, $message);
+      $test->diag("No target defined for pattern match. Call pattern_target test first.");
+      return 0;
+    }
+    my $pattern = (blessed($_[0]) and $_[0]->isa('RDF::Trine::Pattern'))
+                ? $_[0]
+                : RDF::Trine::Pattern->new(@_);
+    my $iter    = $target->get_pattern($pattern);
+    while (my $row = $iter->next) {
+      $test->ok(1, $message);
+      return 1;
+    }
+    $test->ok(0, $message);
+    return 0;
+  }
+} # /scope for $target
 
 
 =head1 NOTE
