@@ -8,6 +8,7 @@ license  'perl';
 
 test_requires 'Test::Tester';
 
+
 requires 'Scalar::Util';
 requires 'Test::More';
 requires 'Test::Builder::Module';
@@ -16,6 +17,7 @@ requires 'RDF::Trine' => '0.134';
 author_tests('xt');
 
 auto_set_repository;
+build_requires 'URI::Escape'; # Seems to be required by the next bugtracker below
 auto_set_bugtracker;
 
 write_doap_changes;
