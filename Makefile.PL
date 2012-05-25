@@ -17,8 +17,10 @@ requires 'RDF::Trine' => '0.134';
 author_tests('xt');
 
 auto_set_repository;
-build_requires 'URI::Escape'; # Seems to be required by the next bugtracker below
-auto_set_bugtracker;
+
+resources
+  bugtracker    => "https://github.com/kjetilk/Test-RDF/issues";
+
 
 write_doap_changes;
 

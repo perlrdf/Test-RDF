@@ -380,9 +380,8 @@ Kjetil Kjernsmo, C<< <kjetilk at cpan.org> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-test-rdf at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-RDF>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+Please report any bugs using L<github|https://github.com/kjetilk/Test-RDF/issues>
+
 
 =head1 SUPPORT
 
