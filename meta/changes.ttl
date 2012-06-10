@@ -7,27 +7,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 
-<>
-    dc:title     "DOAP for Test-RDF"@en ;
-    dc:subject   my:project ;
-    dc:creator   <http://www.kjetil.kjernsmo.net/foaf#me> .
 
-my:project	 
-    a           :Project ;
-    :name       "Test-RDF" ;
-    :shortdesc  "Test RDF data for validity and equality."@en ;
-    :created    "2010-09-03"^^xsd:date ;
-    :programming-language "Perl" ;
-    :maintainer <http://www.kjetil.kjernsmo.net/foaf#me> ;
-    :bug-database <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-RDF> ;
-    :release    my:v_0_24, my:v_0_22, my:v_0_20, my:v_0_11, my:v_0_10, my:v_0_03 .
-
-
-<http://www.kjetil.kjernsmo.net/foaf#me>
-    a           foaf:Person ;
-    owl:sameAs  <http://purl.org/NET/cpan-uri/person/kjetilk> ;
-    foaf:name   "Kjetil Kjernsmo" ;
-    foaf:mbox   <mailto:kjetilk@cpan.org> .
 
 my:v_0_03
     a           :Version ;
@@ -35,11 +15,6 @@ my:v_0_03
     rdfs:label "Michael Hendricks old release based on RDF::Redland."@en ;
     :revision   "0.0.3"^^xsd:string ;
     dc:creator <http://purl.org/NET/cpan-uri/person/mndrix> .
-
-
-<http://purl.org/NET/cpan-uri/person/mndrix>
-    a           foaf:Person ;
-    foaf:name   "Michael Hendricks"@en .
 
 my:v_0_10
     a           :Version ;
@@ -109,6 +84,3 @@ my:v_0_24
         [ rdfs:label "Minor cosmetics."@en ; a dcs:Addition ]
     ] .
 
-<http://tobyinkster.co.uk/#i>	a               foaf:Person ;
-				foaf:homepage   <http://tobyinkster.co.uk/> ;
-				foaf:name       "Toby Inkster" .
