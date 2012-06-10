@@ -11,7 +11,7 @@ use RDF::Trine::Graph;
 use Scalar::Util qw/blessed/;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri has_literal pattern_target pattern_ok/;
+our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri hasnt_uri has_literal pattern_target pattern_ok/;
 
 
 =head1 NAME
@@ -20,11 +20,11 @@ Test::RDF - Test RDF data for content, validity and equality, etc.
 
 =head1 VERSION
 
-Version 0.24
+Version 0.26
 
 =cut
 
-our $VERSION = '0.24';
+our $VERSION = '0.26';
 
 
 =head1 SYNOPSIS
@@ -35,6 +35,8 @@ our $VERSION = '0.24';
  is_rdf($rdf_string, $syntax1, $expected_rdf_string, $syntax2, 'The two strings have the same triples');
  isomorph_graphs($model, $expected_model, 'The two models have the same triples');
  are_subgraphs($model1, $model2, 'Model 1 is a subgraph of model 2' );
+ has_uri($uri_string, $model, 'Has correct URI');
+ hasnt_uri($uri_string, $model, "Hasn't correct URI");
  has_subject($uri_string, $model, 'Subject URI is found');
  has_predicate($uri_string, $model, 'Predicate URI is found');
  has_object_uri($uri_string, $model, 'Object URI is found');
@@ -265,6 +267,29 @@ sub has_uri {
     $test->ok( 0, $name );
     $test->diag('No matching URIs found in model');
     return 0;
+  }
+}
+
+
+=head2 hasnt_uri
+
+Check if the string URI passed as first argument is not present in any
+of the statements given in the model given as second argument.
+
+=cut
+
+sub hasnt_uri {
+  my ($uri, $model, $name) = @_;
+  my $test = __PACKAGE__->builder;
+  if ($model->count_statements(undef, undef, RDF::Trine::Node::Resource->new($uri)) > 0
+      || $model->count_statements(undef, RDF::Trine::Node::Resource->new($uri), undef) > 0
+      || $model->count_statements(RDF::Trine::Node::Resource->new($uri), undef, undef) > 0) {
+    $test->ok( 0, $name );
+    $test->diag('Matching URIs found in model');
+    return 0;
+  } else {
+    $test->ok( 1, $name );
+    return 1;
   }
 }
 

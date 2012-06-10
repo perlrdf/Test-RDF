@@ -1,4 +1,4 @@
-use Test::Tester tests => 85;
+use Test::Tester tests => 118;
 
 use Test::RDF;
 
@@ -147,6 +147,61 @@ check_test(
 	    ok => 0,
 	    name => 'Has a literal',
 	    diag => 'No matching URIs found in model'
+	   }
+);
+
+
+check_test(
+	   sub {
+	     hasnt_uri('http://example.org/foo', $model, 'Has correct subject URI');
+	   },
+	   {
+	    ok => 0,
+		 diag => 'Matching URIs found in model',
+	    name => 'Has correct subject URI',
+	   }
+);
+
+check_test(
+	   sub {
+	     hasnt_uri('http://www.w3.org/2000/01/rdf-schema#label', $model, 'Has correct predicate URI');
+	   },
+	   {
+	    ok => 0,
+		 diag => 'Matching URIs found in model',
+	    name => 'Has correct predicate URI',
+	   }
+);
+
+check_test(
+	   sub {
+	     hasnt_uri('http://example.org/Bar', $model, 'Has correct object URI');
+	   },
+	   {
+	    ok => 0,
+		 diag => 'Matching URIs found in model',
+	    name => 'Has correct object URI',
+	   }
+);
+
+
+check_test(
+	   sub {
+	     hasnt_uri('http://example.com/foo', $model, 'Has not correct URI');
+	   },
+	   {
+	    ok => 1,
+	    name => 'Has not correct URI',
+	   }
+);
+
+check_test(
+	   sub {
+	     hasnt_uri('"This is a Another test"@en', $model, 'Has a literal');
+	   },
+	   {
+	    ok => 1,
+	    name => 'Has a literal',
 	   }
 );
 
