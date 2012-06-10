@@ -21,7 +21,7 @@ auto_set_repository;
 resources
   bugtracker    => "https://github.com/kjetilk/Test-RDF/issues";
 
-
+rdf_metadata;
 write_doap_changes;
 
 sign;
