@@ -1,4 +1,4 @@
-use Test::Tester tests=>57;
+use Test::Tester tests=>65;
 use Test::RDF;
 use RDF::Trine qw[iri variable literal statement];
 
@@ -131,6 +131,7 @@ check_test(
   },
   {
     ok   => 0,
+	 diag => 'Pattern as a whole did not match'
   },
   'pattern_ok - statement list should fail'
 );
@@ -146,6 +147,23 @@ check_test(
   },
   {
     ok   => 0,
+	 diag => 'Pattern as a whole did not match'
+  },
+  'pattern_ok - pattern should fail'
+);
+
+check_test(
+  sub {
+    pattern_ok(
+      RDF::Trine::Pattern->new(
+        statement(variable('who'), $foaf->name, literal('DAHUT')),
+        statement(variable('who'), $foaf->page, iri('http://search.cpan.org/~kjetilk/')),
+        ),
+      );
+  },
+  {
+    ok   => 0,
+	 diag => "Triples that had no results:\n(triple ?who <http://xmlns.com/foaf/0.1/name> \"DAHUT\")"
   },
   'pattern_ok - pattern should fail'
 );

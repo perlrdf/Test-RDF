@@ -386,7 +386,25 @@ B<Note:> C<pattern_target> must have been tested before any C<pattern_ok> tests.
       $test->ok(1, $message);
       return 1;
     }
+	 my $noreturns;
+	 foreach my $triple ($pattern->triples) {
+		 my @triple;
+		 foreach my $node ($triple->nodes) {
+			 if ($node->is_variable) {
+				 push(@triple, undef);
+			 } else {
+				 push(@triple, $node);
+			 }
+		 }
+		 next if ($target->count_statements(@triple));
+		 $noreturns .= $triple->as_string . "\n";
+	 }
     $test->ok(0, $message);
+	 if ($noreturns) {
+		 $test->diag("Triples that had no results:\n$noreturns");
+	 } else {
+		 $test->diag('Pattern as a whole did not match');
+	 }
     return 0;
   }
 } # /scope for $target
