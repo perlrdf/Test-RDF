@@ -84,3 +84,17 @@ my:v_0_24
         [ rdfs:label "Minor cosmetics."@en ; a dcs:Addition ]
     ] .
 
+my:v_0_26
+    a           :Version ;
+    dc:issued   "2012-06-11"^^xsd:date ;
+    rdfs:label "New hasnt_uri test."@en ;
+    :revision   "0.26"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Reorgnize metadata to exploit new modules"@en ; a dcs:Change ] ,
+        [ rdfs:label "Use github issue tracker."@en ; a dcs:Change ] ,
+        [ rdfs:label "Add hasnt uri test."@en ; a dcs:Addition ] ,
+        [ rdfs:label "Improve pattern_ok diagnostics."@en ; a dcs:Addition ] , 
+        [ rdfs:label "Minor cosmetics."@en ; a dcs:Addition ]
+    ] .
+
