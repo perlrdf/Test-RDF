@@ -432,14 +432,11 @@ You can find documentation for this module with the perldoc command.
 
     perldoc Test::RDF
 
+You may find the Perl and RDF community L<website|http://www.perlrdf.org/> useful.
 
 You can also look for information at:
 
 =over 4
-
-=item * RT: CPAN's request tracker
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Test-RDF>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
@@ -452,6 +449,10 @@ L<http://cpanratings.perl.org/d/Test-RDF>
 =item * Search CPAN
 
 L<http://search.cpan.org/dist/Test-RDF/>
+
+=item * MetaCPAN
+
+L<https://metacpan.org/module/Test::RDF>
 
 =back
 
