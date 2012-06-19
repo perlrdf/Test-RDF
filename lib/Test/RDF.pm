@@ -44,6 +44,15 @@ our $VERSION = '0.26';
  pattern_target($model);
  pattern_ok($pattern, '$pattern found in $model');
 
+=head1 DESCRIPTION
+
+This Perl module, Test::RDF, provides tools for testing code which
+deals with RDF. It can test RDF for validity, check if two RDF graphs
+are the same, or subgraphs of each other, if a URI is or is not in a
+dataset, if it has certain subjects, predicates, objects or
+literals. It can also test to see if a full pattern is present.
+
+
 =head1 EXPORT
 
 =head2 is_valid_rdf
