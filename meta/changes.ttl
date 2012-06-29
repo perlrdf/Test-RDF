@@ -98,3 +98,13 @@ my:v_0_26
         [ rdfs:label "Minor cosmetics."@en ; a dcs:Addition ]
     ] .
 
+my:v_1_0
+    a           :Version ;
+    dc:issued   "2012-06-30"^^xsd:date ;
+    rdfs:label "Stable release."@en ;
+    :revision   "1.00"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Add a description to the POD."@en ; a dcs:Addition ]  
+    ] .
+

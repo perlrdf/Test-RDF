@@ -2,7 +2,7 @@ NAME
     Test::RDF - Test RDF data for content, validity and equality, etc.
 
 VERSION
-    Version 0.26
+    Version 1.00
 
 SYNOPSIS
      use Test::RDF;
@@ -19,6 +19,13 @@ SYNOPSIS
      has_literal($string, $language, $datatype, $model, 'Literal is found');
      pattern_target($model);
      pattern_ok($pattern, '$pattern found in $model');
+
+DESCRIPTION
+    This Perl module, Test::RDF, provides tools for testing code which deals
+    with RDF. It can test RDF for validity, check if two RDF graphs are the
+    same, or subgraphs of each other, if a URI is or is not in a dataset, if
+    it has certain subjects, predicates, objects or literals. It can also
+    test to see if a full pattern is present.
 
 EXPORT
   is_valid_rdf
@@ -118,14 +125,16 @@ AUTHOR
     Kjetil Kjernsmo, "<kjetilk at cpan.org>"
 
 BUGS
-    Please report any bugs using <github>
+    Please report any bugs using github
+    <https://github.com/kjetilk/Test-RDF/issues>
 
 SUPPORT
     You can find documentation for this module with the perldoc command.
 
         perldoc Test::RDF
 
-    You may find the Perl and RDF community <website> useful.
+    You may find the Perl and RDF community website
+    <http://www.perlrdf.org/> useful.
 
     You can also look for information at:
 

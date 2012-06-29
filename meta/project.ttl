@@ -20,6 +20,6 @@ my:project
     :programming-language "Perl" ;
     :maintainer <http://www.kjetil.kjernsmo.net/foaf#me> ;
     :bug-database <https://github.com/kjetilk/Test-RDF/issues> ;
-    :release    my:v_0_26, my:v_0_24, my:v_0_22, my:v_0_20, my:v_0_11, my:v_0_10, my:v_0_03 .
+    :release    my:v_1_0, my:v_0_26, my:v_0_24, my:v_0_22, my:v_0_20, my:v_0_11, my:v_0_10, my:v_0_03 .
 
 
