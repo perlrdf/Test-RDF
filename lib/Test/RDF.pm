@@ -390,11 +390,7 @@ B<Note:> C<pattern_target> must have been tested before any C<pattern_ok> tests.
     my $pattern = (blessed($_[0]) and $_[0]->isa('RDF::Trine::Pattern'))
                 ? $_[0]
                 : RDF::Trine::Pattern->new(@_);
-	 warn "PATTERN " . $pattern->sse;
-	 my $s = RDF::Trine::Serializer::Turtle->new();
-	 warn "TARGET " . $s->serialize_model_to_string($target);
     my $iter    = $target->get_pattern($pattern);
-	 warn "ITER\n" . $iter->materialize->length;
     if ($iter->materialize->length > 0) {
       $test->ok(1, $message);
       return 1;
