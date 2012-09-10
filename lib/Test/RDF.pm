@@ -11,7 +11,7 @@ use RDF::Trine::Graph;
 use Scalar::Util qw/blessed/;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri hasnt_uri has_literal pattern_target pattern_ok/;
+our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri hasnt_uri has_literal pattern_target pattern_ok pattern_fail/;
 
 
 =head1 NAME
@@ -20,11 +20,11 @@ Test::RDF - Test RDF data for content, validity and equality, etc.
 
 =head1 VERSION
 
-Version 1.00
+Version 1.10
 
 =cut
 
-our $VERSION = '1.00';
+our $VERSION = '1.10';
 
 
 =head1 SYNOPSIS
@@ -375,6 +375,7 @@ B<Note:> C<pattern_target> must have been tested before any C<pattern_ok> tests.
       return 0;
     }
   }
+
   sub pattern_ok {
     my $message = undef;
     $message = pop @_ if !ref $_[-1];
@@ -390,15 +391,13 @@ B<Note:> C<pattern_target> must have been tested before any C<pattern_ok> tests.
     my $pattern = (blessed($_[0]) and $_[0]->isa('RDF::Trine::Pattern'))
                 ? $_[0]
                 : RDF::Trine::Pattern->new(@_);
-	 warn "PATTERN " . $pattern->sse;
 	 my $s = RDF::Trine::Serializer::Turtle->new();
-	 warn "TARGET " . $s->serialize_model_to_string($target);
     my $iter    = $target->get_pattern($pattern);
-	 warn "ITER\n" . $iter->materialize->length;
     if ($iter->materialize->length > 0) {
       $test->ok(1, $message);
       return 1;
     }
+	 # The test result is now known, return diagnostics
 	 my $noreturns;
 	 foreach my $triple ($pattern->triples) {
 		 my @triple;
@@ -418,6 +417,33 @@ B<Note:> C<pattern_target> must have been tested before any C<pattern_ok> tests.
 	 } else {
 		 $test->diag('Pattern as a whole did not match');
 	 }
+    return 0;
+  }
+
+  sub pattern_fail {
+    my $message = undef;
+    $message = pop @_ if !ref $_[-1];
+    unless (defined $message and length $message) {
+      $message = "Pattern doesn't match";
+    }
+    my $test = __PACKAGE__->builder;
+    unless (blessed($target)) {
+      $test->ok(0, $message);
+      $test->diag("No target defined for pattern match. Call pattern_target test first.");
+      return 0;
+    }
+    my $pattern = (blessed($_[0]) and $_[0]->isa('RDF::Trine::Pattern'))
+                ? $_[0]
+                : RDF::Trine::Pattern->new(@_);
+    my $iter = $target->get_pattern($pattern)->materialize;
+
+    if ($iter->length == 0) {
+      $test->ok(1, $message);
+      return 1;
+    }
+	 # The test result is now known, return diagnostics
+    $test->ok(0, $message);
+	 $test->diag("These triples had results:\n" . $iter->as_string);
     return 0;
   }
 } # /scope for $target
