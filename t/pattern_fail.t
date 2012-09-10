@@ -1,4 +1,4 @@
-use Test::Tester tests=>47;
+use Test::Tester tests=>43;
 use Test::RDF;
 use RDF::Trine qw[iri variable literal statement];
 
@@ -36,8 +36,6 @@ check_test(
   },
   {
     ok   => 0,
-	 diag => "These triples had results:\n+-------+\n| who   |\n+-------+\n| _:rr0 |\n+-------+"
-
   },
   'pattern_fail - statement list'
 );
@@ -53,7 +51,6 @@ check_test(
   },
   {
     ok   => 0,
-	 diag => "These triples had results:\n+-------+\n| who   |\n+-------+\n| _:rr0 |\n+-------+"
   },
   'pattern_fail - pattern'
 );
@@ -69,7 +66,6 @@ check_test(
   {
     ok   => 0,
     name => 'FOO',
-	 diag => "These triples had results:\n+-------+\n| who   |\n+-------+\n| _:rr0 |\n+-------+"
   },
   'pattern_fail - statement list plus message'
 );
@@ -87,10 +83,10 @@ check_test(
   {
     ok   => 0,
     name => 'FOO',
-	 diag => "These triples had results:\n+-------+\n| who   |\n+-------+\n| _:rr0 |\n+-------+"
   },
   'pattern_fail - pattern plus message'
 );
+
 
 check_test(
   sub {
