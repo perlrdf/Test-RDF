@@ -43,6 +43,7 @@ our $VERSION = '1.10';
  has_literal($string, $language, $datatype, $model, 'Literal is found');
  pattern_target($model);
  pattern_ok($pattern, '$pattern found in $model');
+ pattern_fail($pattern, '$pattern not found in $model');
 
 =head1 DESCRIPTION
 
@@ -50,7 +51,8 @@ This Perl module, Test::RDF, provides tools for testing code which
 deals with RDF. It can test RDF for validity, check if two RDF graphs
 are the same, or subgraphs of each other, if a URI is or is not in a
 dataset, if it has certain subjects, predicates, objects or
-literals. It can also test to see if a full pattern is present.
+literals. It can also test to see if a full pattern is present or
+absent.
 
 
 =head1 EXPORT
@@ -352,6 +354,10 @@ a list of RDF::Trine::Statement objects.
    );
 
 B<Note:> C<pattern_target> must have been tested before any C<pattern_ok> tests.
+
+=head2 pattern_fail
+
+The same as above, but tests if the pattern returns no results instead.
 
 =cut
 
