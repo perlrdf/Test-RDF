@@ -108,7 +108,7 @@ my:v_1_0
         [ rdfs:label "Add a description to the POD."@en ; a dcs:Addition ]  
     ] .
 
-my:v_1_0
+my:v_1_1
     a           :Version ;
     dc:issued   "2012-09-10"^^xsd:date ;
     rdfs:label "Add pattern_fail."@en ;
