@@ -5,7 +5,7 @@
 
 <http://purl.org/NET/cpan-uri/dist/URI-NamespaceMap/project>
     :perl_version_from _:main ;
-    :version_from _:main ;
+    :all_from _:main ;
     :readme_from _:main ;
     :test_requires "Test::Tester" ;
     :requires "Scalar::Util", "Test::More", "Test::Builder::Module", "RDF::Trine 0.134";
