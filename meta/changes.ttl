@@ -119,3 +119,13 @@ my:v_1_1
         [ rdfs:label "Function to test if pattern doesn't exist."@en ; a dcs:Addition ]  
     ] .
 
+my:v_1_11
+    a           :Version ;
+    dc:issued   "2012-10-17"^^xsd:date ;
+    rdfs:label "Update to RDF::Trine 1.001."@en ;
+    :revision   "1.11"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Update test to check the new errors of RDF::Trine::Parser::Turtle 1.001."@en ; a dcs:Update ]  
+    ] .
+
