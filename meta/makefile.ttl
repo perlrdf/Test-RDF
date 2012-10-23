@@ -8,6 +8,6 @@
     :version_from <project#main> ;
     :readme_from <project#main> ;
     :test_requires "Test::Tester" ;
-    :requires "Scalar::Util", "Test::More", "Test::Builder::Module", "RDF::Trine 0.134" .
+    :requires "Scalar::Util 1.23", "Test::More", "Test::Builder::Module", "RDF::Trine 0.134" .
 
 <project#main> <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileName> "lib/Test/RDF.pm" .
