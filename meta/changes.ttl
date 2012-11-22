@@ -136,6 +136,6 @@ my:v_1_14
     :revision   "1.14"^^xsd:string ;
     dcs:changeset [
       dcs:item
-        [ rdfs:label "Set dependency on Scalar::Util to anything but 1.23."@en ; a dcs:Update ]  
+        [ rdfs:label "Dependency on Scalar::Util is anything but 1.23, set it to 1.24."@en ; a dcs:Update ]  
     ] .
 

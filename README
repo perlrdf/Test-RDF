@@ -2,7 +2,7 @@ NAME
     Test::RDF - Test RDF data for content, validity and equality, etc.
 
 VERSION
-    Version 1.12
+    Version 1.14
 
 SYNOPSIS
      use Test::RDF;
