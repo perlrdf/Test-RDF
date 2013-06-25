@@ -29,7 +29,7 @@ check_test(
 	     is_valid_rdf('</foo> <http://www.w3.org/2000/01/rdf-schema#label> "This is a Another test@en .', 'turtle', 'Valid turtle');
 	   });
   is($results[0]->{ok}, 0, 'Not Valid turtle');
-  like($results[0]->{diag}, qr/Input was not valid RDF:\n\n\t(No tokens|Redland error: syntax error at '"'|Got '"' while expecting string character at 1:53)/, 'Error message is correct');
+  like($results[0]->{diag}, qr/Input was not valid RDF:\n\n\t(No tokens|Redland error: syntax error at '"'|Got '"' while expecting string character at 1:[5-8]\d)/, 'Error message is correct');
 }
 
 check_test(
