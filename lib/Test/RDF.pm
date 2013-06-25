@@ -196,7 +196,9 @@ of the statements given in the model given as second argument.
 
 sub has_predicate {
   my ($uri, $model, $name) = @_;
-  my $count = $model->count_statements(undef, RDF::Trine::Node::Resource->new($uri), undef);
+  my $resource = _resource_uri_checked($uri, $name);
+  return $resource unless ($resource);
+  my $count = $model->count_statements(undef, $resource, undef);
   return _single_uri_tests($count, $name);
 }
 
@@ -209,7 +211,9 @@ of the statements given in the model given as second argument.
 
 sub has_object_uri {
   my ($uri, $model, $name) = @_;
-  my $count = $model->count_statements(undef, undef, RDF::Trine::Node::Resource->new($uri));
+  my $resource = _resource_uri_checked($uri, $name);
+  return $resource unless ($resource);
+  my $count = $model->count_statements(undef, undef, $resource);
   return _single_uri_tests($count, $name);
 }
 
@@ -271,9 +275,11 @@ the statements given in the model given as second argument.
 sub has_uri {
   my ($uri, $model, $name) = @_;
   my $test = __PACKAGE__->builder;
-  if ($model->count_statements(undef, undef, RDF::Trine::Node::Resource->new($uri)) > 0
-      || $model->count_statements(undef, RDF::Trine::Node::Resource->new($uri), undef) > 0
-      || $model->count_statements(RDF::Trine::Node::Resource->new($uri), undef, undef) > 0) {
+  my $resource = _resource_uri_checked($uri, $name);
+  return $resource unless ($resource);
+  if ($model->count_statements(undef, undef, $resource) > 0
+      || $model->count_statements(undef, $resource, undef) > 0
+      || $model->count_statements($resource, undef, undef) > 0) {
     $test->ok( 1, $name );
     return 1;
   } else {
@@ -294,9 +300,13 @@ of the statements given in the model given as second argument.
 sub hasnt_uri {
   my ($uri, $model, $name) = @_;
   my $test = __PACKAGE__->builder;
-  if ($model->count_statements(undef, undef, RDF::Trine::Node::Resource->new($uri)) > 0
-      || $model->count_statements(undef, RDF::Trine::Node::Resource->new($uri), undef) > 0
-      || $model->count_statements(RDF::Trine::Node::Resource->new($uri), undef, undef) > 0) {
+  my $resource;
+  eval {
+	  $resource = RDF::Trine::Node::Resource->new($uri);
+  };
+  if (($resource) && ($model->count_statements(undef, undef, $resource) > 0
+      || $model->count_statements(undef, $resource, undef) > 0
+      || $model->count_statements($resource, undef, undef)) > 0) {
     $test->ok( 0, $name );
     $test->diag('Matching URIs found in model');
     return 0;
