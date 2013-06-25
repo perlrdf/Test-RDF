@@ -253,7 +253,6 @@ sub has_literal {
     return;
   }
 
-  #local $Test::Builder::Level = $Test::Builder::Level + 1;
   if ($model->count_statements(undef, undef, $literal) > 0) {
     $test->ok( 1, $name );
     return 1;
