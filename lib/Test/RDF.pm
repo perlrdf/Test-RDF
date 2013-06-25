@@ -11,7 +11,7 @@ use RDF::Trine::Graph;
 use Scalar::Util qw/blessed/;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri hasnt_uri has_literal pattern_target pattern_ok pattern_fail/;
+our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri hasnt_uri has_literal hasnt_literal pattern_target pattern_ok pattern_fail/;
 
 
 =head1 NAME
@@ -41,6 +41,7 @@ our $VERSION = '1.15_1';
  has_predicate($uri_string, $model, 'Predicate URI is found');
  has_object_uri($uri_string, $model, 'Object URI is found');
  has_literal($string, $language, $datatype, $model, 'Literal is found');
+ hasnt_literal($string, $language, $datatype, $model, 'Literal is not found');
  pattern_target($model);
  pattern_ok($pattern, '$pattern found in $model');
  pattern_fail($pattern, '$pattern not found in $model');
@@ -262,6 +263,40 @@ sub has_literal {
     return 0;
   }
 }
+
+
+=head2 hasnt_literal
+
+This is like the above, only the opposite: It checks if a literal
+doesn't exist. Like the above, the test will fail if the literal is
+invalid, however.
+
+=cut
+
+sub hasnt_literal {
+  my ($string, $lang, $datatype, $model, $name) = @_;
+  my $literal;
+  my $test = __PACKAGE__->builder;
+  eval {
+    $literal = RDF::Trine::Node::Literal->new($string, $lang, $datatype);
+  };
+
+  if ( my $error = $@ ) {
+    $test->ok( 0, $name );
+    $test->diag("Invalid literal:\n\n\t$error");
+    return;
+  }
+
+  if ($model->count_statements(undef, undef, $literal) > 0) {
+    $test->ok( 0, $name );
+    $test->diag('Matching literals found in model');
+    return 0;
+  } else {
+    $test->ok( 1, $name );
+    return 1;
+  }
+}
+
 
 
 =head2 has_uri
