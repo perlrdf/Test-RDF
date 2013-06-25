@@ -147,7 +147,7 @@ my:v_1_15_1
     :revision   "1.15_1"^^xsd:string ;
     dcs:changeset [
       dcs:item
-        [ rdfs:label "The new Turtle parser reports errors on a different spot."@en ; a dcs:Bugfix ]  
+        [ rdfs:label "The new Turtle parser reports errors on a different spot."@en ; a dcs:Bugfix ],
         [ rdfs:label "With the new URI tests, my tests needs to check."@en ; a dcs:Bugfix ]  
     ] .
 
