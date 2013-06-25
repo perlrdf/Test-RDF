@@ -180,7 +180,9 @@ of the statements given in the model given as second argument.
 
 sub has_subject {
   my ($uri, $model, $name) = @_;
-  my $count = $model->count_statements(RDF::Trine::Node::Resource->new($uri), undef, undef);
+  my $resource = _resource_uri_checked($uri, $name);
+  return $resource unless ($resource);
+  my $count = $model->count_statements($resource, undef, undef);
   return _single_uri_tests($count, $name);
 }
 
@@ -318,6 +320,26 @@ sub _single_uri_tests {
     return 0;
   }
 }
+
+sub _resource_uri_checked {
+	my ($uri, $name) = @_;
+	my $resource;
+	eval {
+		$resource = RDF::Trine::Node::Resource->new($uri);
+	};
+	if ( my $error = $@ ) {
+		my $test = __PACKAGE__->builder;
+		local $Test::Builder::Level = $Test::Builder::Level + 1;
+		$test->ok( 0, $name );
+		$test->diag("No matching URIs found in model");
+		return 0;
+	}
+	return $resource;
+}
+
+		
+
+
 
 =head2 pattern_target
 
