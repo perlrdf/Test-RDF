@@ -7,4 +7,4 @@ BEGIN {
 ";
 }
 
-diag( "Testing Test::RDF $Test::RDF::VERSION, Perl $], $^X" );
+diag( "Testing Test::RDF $Test::RDF::VERSION, RDF::Trine $RDF::Trine::VERSION, Perl $], $^X" );
