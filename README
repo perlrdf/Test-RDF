@@ -2,7 +2,7 @@ NAME
     Test::RDF - Test RDF data for content, validity and equality, etc.
 
 VERSION
-    Version 1.15_1
+    Version 1.15_2
 
 SYNOPSIS
      use Test::RDF;
@@ -17,6 +17,7 @@ SYNOPSIS
      has_predicate($uri_string, $model, 'Predicate URI is found');
      has_object_uri($uri_string, $model, 'Object URI is found');
      has_literal($string, $language, $datatype, $model, 'Literal is found');
+     hasnt_literal($string, $language, $datatype, $model, 'Literal is not found');
      pattern_target($model);
      pattern_ok($pattern, '$pattern found in $model');
      pattern_fail($pattern, '$pattern not found in $model');
@@ -72,6 +73,11 @@ EXPORT
     and a language literal like
 
      has_literal('This is a Another test', 'en', undef, $model, 'Language literal');
+
+  hasnt_literal
+    This is like the above, only the opposite: It checks if a literal
+    doesn't exist. Like the above, the test will fail if the literal is
+    invalid, however.
 
   has_uri
     Check if the string URI passed as first argument is present in any of
