@@ -140,13 +140,14 @@ my:v_1_14
     ] .
 
 
-my:v_1_15_1
+my:v_1_15_2
     a           :Version ;
     dc:issued   "2013-06-25"^^xsd:date ;
-    rdfs:label "Fix bugs arising due to new Trine behaviour."@en ;
-    :revision   "1.15_1"^^xsd:string ;
+    rdfs:label "Bugfix and hasnt_literal."@en ;
+    :revision   "1.15_2"^^xsd:string ;
     dcs:changeset [
       dcs:item
+        [ rdfs:label "Add new hasnt_literal test."@en ; a dcs:Addition ],
         [ rdfs:label "The new Turtle parser reports errors on a different spot."@en ; a dcs:Bugfix ],
         [ rdfs:label "With the new URI tests, my tests needs to check."@en ; a dcs:Bugfix ]  
     ] .
