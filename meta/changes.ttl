@@ -139,3 +139,15 @@ my:v_1_14
         [ rdfs:label "Dependency on Scalar::Util is anything but 1.23, set it to 1.24."@en ; a dcs:Update ]  
     ] .
 
+
+my:v_1_15_1
+    a           :Version ;
+    dc:issued   "2013-06-25"^^xsd:date ;
+    rdfs:label "Fix bugs arising due to new Trine behaviour."@en ;
+    :revision   "1.15_1"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "The new Turtle parser reports errors on a different spot."@en ; a dcs:Bugfix ]  
+        [ rdfs:label "With the new URI tests, my tests needs to check."@en ; a dcs:Bugfix ]  
+    ] .
+
