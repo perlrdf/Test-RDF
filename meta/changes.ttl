@@ -140,11 +140,11 @@ my:v_1_14
     ] .
 
 
-my:v_1_15_2
+my:v_1-16
     a           :Version ;
-    dc:issued   "2013-06-25"^^xsd:date ;
+    dc:issued   "2013-06-27"^^xsd:date ;
     rdfs:label "Bugfix and hasnt_literal."@en ;
-    :revision   "1.15_2"^^xsd:string ;
+    :revision   "1.16"^^xsd:string ;
     dcs:changeset [
       dcs:item
         [ rdfs:label "Add new hasnt_literal test."@en ; a dcs:Addition ],
