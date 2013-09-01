@@ -20,6 +20,7 @@ my:project
     :programming-language "Perl" ;
     :license     <http://dev.perl.org/licenses/> ;	
     :maintainer	  <http://www.kjetil.kjernsmo.net/foaf#me> ;
+    :homepage 	  <https://metacpan.org/module/Test::RDF> ;
     :bug-database <https://github.com/kjetilk/Test-RDF/issues> ;
     :repository [ 
     		  a :GitRepository ; 
