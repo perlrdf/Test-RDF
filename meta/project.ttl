@@ -6,6 +6,7 @@
 @prefix dcs:  <http://ontologi.es/doap-changeset#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix cpan-uri: <http://purl.org/NET/cpan-uri/terms#> .
 
 <>
     dc:title     "DOAP for Test-RDF"@en ;
@@ -26,6 +27,7 @@ my:project
     		  a :GitRepository ; 
 		  :browse <https://github.com/kjetilk/Test-RDF/> 
 		] ;
+    cpan-uri:x_IRC <irc://irc.perl.org/#perlrdf> ;
     :release    my:v_1-16, my:v_1_14, my:v_1_11, my:v_1_1, my:v_1_0, my:v_0_26, my:v_0_24, my:v_0_22, my:v_0_20, my:v_0_11, my:v_0_10, my:v_0_03 .
 
 
