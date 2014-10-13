@@ -3,7 +3,7 @@ package Test::RDF;
 use warnings;
 use strict;
 
-use Carp;
+use Carp qw(confess);
 use RDF::Trine;
 use RDF::Trine::Parser;
 use RDF::Trine::Model;
@@ -134,6 +134,8 @@ Use to check if the input RDF::Trine::Models have isomorphic graphs.
 
 sub isomorph_graphs {
   my ($model1, $model2, $name) = @_;
+  confess 'No valid models given in test' unless ((blessed($model1) && $model1->isa('RDF::Trine::Model'))
+																	&& (blessed($model2) && $model2->isa('RDF::Trine::Model')));
   my $g1 = RDF::Trine::Graph->new( $model1 );
   my $g2 = RDF::Trine::Graph->new( $model2 );
   my $test = __PACKAGE__->builder;
@@ -157,6 +159,8 @@ Use to check if the first RDF::Trine::Models is a subgraph of the second.
 
 sub are_subgraphs {
   my ($model1, $model2, $name) = @_;
+  confess 'No valid models given in test' unless ((blessed($model1) && $model1->isa('RDF::Trine::Model'))
+																	&& (blessed($model2) && $model2->isa('RDF::Trine::Model')));
   my $g1 = RDF::Trine::Graph->new( $model1 );
   my $g2 = RDF::Trine::Graph->new( $model2 );
   my $test = __PACKAGE__->builder;
@@ -181,6 +185,7 @@ of the statements given in the model given as second argument.
 
 sub has_subject {
   my ($uri, $model, $name) = @_;
+  confess 'No valid model given in test' unless (blessed($model) && $model->isa('RDF::Trine::Model'));
   my $resource = _resource_uri_checked($uri, $name);
   return $resource unless ($resource);
   my $count = $model->count_statements($resource, undef, undef);
@@ -197,6 +202,7 @@ of the statements given in the model given as second argument.
 
 sub has_predicate {
   my ($uri, $model, $name) = @_;
+  confess 'No valid model given in test' unless (blessed($model) && $model->isa('RDF::Trine::Model'));
   my $resource = _resource_uri_checked($uri, $name);
   return $resource unless ($resource);
   my $count = $model->count_statements(undef, $resource, undef);
@@ -212,6 +218,7 @@ of the statements given in the model given as second argument.
 
 sub has_object_uri {
   my ($uri, $model, $name) = @_;
+  confess 'No valid model given in test' unless (blessed($model) && $model->isa('RDF::Trine::Model'));
   my $resource = _resource_uri_checked($uri, $name);
   return $resource unless ($resource);
   my $count = $model->count_statements(undef, undef, $resource);
@@ -243,6 +250,7 @@ and a language literal like
 
 sub has_literal {
   my ($string, $lang, $datatype, $model, $name) = @_;
+  confess 'No valid model given in test' unless (blessed($model) && $model->isa('RDF::Trine::Model'));
   my $literal;
   my $test = __PACKAGE__->builder;
   eval {
@@ -275,6 +283,7 @@ invalid, however.
 
 sub hasnt_literal {
   my ($string, $lang, $datatype, $model, $name) = @_;
+  confess 'No valid model given in test' unless (blessed($model) && $model->isa('RDF::Trine::Model'));
   my $literal;
   my $test = __PACKAGE__->builder;
   eval {
@@ -308,6 +317,7 @@ the statements given in the model given as second argument.
 
 sub has_uri {
   my ($uri, $model, $name) = @_;
+  confess 'No valid model given in test' unless (blessed($model) && $model->isa('RDF::Trine::Model'));
   my $test = __PACKAGE__->builder;
   my $resource = _resource_uri_checked($uri, $name);
   return $resource unless ($resource);
@@ -333,6 +343,7 @@ of the statements given in the model given as second argument.
 
 sub hasnt_uri {
   my ($uri, $model, $name) = @_;
+  confess 'No valid model given in test' unless (blessed($model) && $model->isa('RDF::Trine::Model'));
   my $test = __PACKAGE__->builder;
   my $resource;
   eval {
