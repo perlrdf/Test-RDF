@@ -152,3 +152,15 @@ my:v_1-16
         [ rdfs:label "With the new URI tests, my tests needs to check."@en ; a dcs:Bugfix ]  
     ] .
 
+my:v_1-18
+    a           :Version ;
+    dc:issued   "2014-10-14"^^xsd:date ;
+    rdfs:label "Cosmetic changes and diagnostics."@en ;
+    :revision   "1.18"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Improve diagnostics if a model isn't given."@en ; a dcs:Addition ],
+        [ rdfs:label "Use Dist::Inkt packaging."@en ; a dcs:Change ],
+        [ rdfs:label "Improve package metadata."@en ; a dcs:Addition ]  
+    ] .
+
