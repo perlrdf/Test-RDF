@@ -20,11 +20,11 @@ Test::RDF - Test RDF data for content, validity and equality, etc.
 
 =head1 VERSION
 
-Version 1.16
+Version 1.18
 
 =cut
 
-our $VERSION = '1.16';
+our $VERSION = '1.18';
 
 
 =head1 SYNOPSIS
