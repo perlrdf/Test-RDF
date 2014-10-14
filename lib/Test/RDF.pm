@@ -591,7 +591,7 @@ Toby Inkster has submitted the pattern_* functions.
 =head1 LICENSE AND COPYRIGHT
 
 Copyright 2010 ABC Startsiden AS.
-Copyright 2010, 2011, 2012, 2013 Kjetil Kjernsmo.
+Copyright 2010, 2011, 2012, 2013, 2014 Kjetil Kjernsmo.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
