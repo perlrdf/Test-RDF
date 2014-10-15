@@ -177,4 +177,4 @@ my:v_1-19
 
     ] .
 
-my:project :release my:v_1-19	 
+my:project :release my:v_1-19 .
