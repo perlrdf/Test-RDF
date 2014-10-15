@@ -173,7 +173,8 @@ my:v_1-19
     dcs:changeset [
       dcs:item
         [ rdfs:label "Old metadata wasn't overwritten, deleted to allow Dist::Inkt to work."@en ; a dcs:Bugfix ] , 
-	[ rdfs:label "Add links to Debian."@en ; a dcs:Addition ]  
+	[ rdfs:label "Add links to Debian."@en ; a dcs:Addition ] ,
+        [ rdfs:label "Remove inc/"@en ; a dcs:Removal ] 
 
     ] .
 
