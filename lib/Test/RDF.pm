@@ -9,6 +9,7 @@ use RDF::Trine::Parser;
 use RDF::Trine::Model;
 use RDF::Trine::Graph;
 use Scalar::Util qw/blessed/;
+use Try::Tiny;
 
 use base 'Test::Builder::Module';
 our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri hasnt_uri has_literal hasnt_literal pattern_target pattern_ok pattern_fail/;
@@ -73,17 +74,20 @@ sub is_valid_rdf {
     return;
   }
   my $parser = RDF::Trine::Parser->new($syntax);
-  eval {
-    $parser->parse('http://example.org/', $rdf, sub {});
-  };
-  if ( my $error = $@ ) {
-    $test->ok( 0, $name );
-    $test->diag("Input was not valid RDF:\n\n\t$error");
-    return;
-  }
-  else {
-    $test->ok( 1, $name );
-    return 1;
+  local $Test::Builder::Level = $Test::Builder::Level + 5;
+  try {
+	  $parser->parse('http://example.org/', $rdf, sub {});
+  } catch {
+	  $test->diag("Input was not valid RDF:\n\n\t$_");
+  } finally {
+	  if ( @_ ) {
+		  $test->ok( 0, $name );
+		  return;
+	  }
+	  else {
+		  $test->ok( 1, $name );
+		  return 1;
+	  }
   }
 }
 
