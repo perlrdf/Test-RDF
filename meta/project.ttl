@@ -24,6 +24,7 @@ my:project
     :maintainer	  <http://www.kjetil.kjernsmo.net/foaf#me> ;
     :homepage 	  <https://metacpan.org/module/Test::RDF> ;
     :bug-database <https://github.com/kjetilk/Test-RDF/issues> ;
+    owl:sameAs <http://packages.qa.debian.org/libtest-rdf-perl#upstream> ;
     :repository [ 
     		  a :GitRepository ; 
 		  :browse <https://github.com/kjetilk/Test-RDF/> ;

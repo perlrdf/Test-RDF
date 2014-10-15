@@ -169,9 +169,12 @@ my:v_1-19
     dc:issued   "2014-10-15"^^xsd:date ;
     rdfs:label "Cosmetic changes and diagnostics."@en ;
     :revision   "1.19"^^xsd:string ;
+    owl:sameAs <http://packages.qa.debian.org/libtest-rdf-perl#upstreamsrc_1.19> ;
     dcs:changeset [
       dcs:item
-        [ rdfs:label "Old metadata wasn't overwritten, deleted to allow Dist::Inkt to work."@en ; a dcs:Bugfix ]
+        [ rdfs:label "Old metadata wasn't overwritten, deleted to allow Dist::Inkt to work."@en ; a dcs:Bugfix ] , 
+	[ rdfs:label "Add links to Debian."@en ; a dcs:Addition ]  
+
     ] .
 
-my:project :release my:v_1-19 .	 
+my:project :release my:v_1-19	 
