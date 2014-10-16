@@ -109,3 +109,6 @@
 ^inc/Module/Install/RDF.pm$
 ^inc/Module/Install/ReadmeFromPod.pm$
 ^inc/Module/Install/StandardDocuments.pm$
+
+# This is just for github:
+README.pod
