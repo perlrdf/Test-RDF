@@ -1,5 +1,6 @@
 package Test::RDF;
 
+use 5.006;
 use warnings;
 use strict;
 
