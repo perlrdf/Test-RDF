@@ -1,9 +1,9 @@
-@prefix deps:  <http://ontologi.es/doap-deps#> .
+@prefix :  <http://ontologi.es/doap-deps#> .
 
 <http://purl.org/NET/cpan-uri/dist/Test-RDF/project>
-	deps:runtime-requirement         [ deps:on "Scalar::Util 1.24"^^deps:CpanId ];
-	deps:runtime-requirement         [ deps:on "Test::More"^^deps:CpanId ];
-	deps:runtime-requirement         [ deps:on "Test::Builder::Module"^^deps:CpanId ];
-	deps:runtime-requirement         [ deps:on "RDF::Trine 0.134"^^deps:CpanId ];
-	deps:test-requirement            [ deps:on "Test::Tester"^^deps:CpanId ].
+	:runtime-requirement         [ :on "Scalar::Util 1.24"^^:CpanId ];
+	:runtime-requirement         [ :on "Test::More"^^:CpanId ];
+	:runtime-requirement         [ :on "Test::Builder::Module"^^:CpanId ];
+	:runtime-requirement         [ :on "RDF::Trine 0.134"^^:CpanId ];
+	:test-requirement            [ :on "Test::Tester"^^:CpanId ].
 
