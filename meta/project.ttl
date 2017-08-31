@@ -30,7 +30,8 @@ my:project
 		  :browse <https://github.com/kjetilk/Test-RDF/> ;
 		  prov:has_provenance <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Fkjetilk%2FTest-RDF%2F&serialization=PROV-O#>  		
 				] ;
-    cpan-uri:x_IRC <irc://irc.perl.org/#perlrdf> ;
+    :support-forum <irc://irc.perl.org/#perlrdf> ;
     :release    my:v_1-18, my:v_1-16, my:v_1_14, my:v_1_11, my:v_1_1, my:v_1_0, my:v_0_26, my:v_0_24, my:v_0_22, my:v_0_20, my:v_0_11, my:v_0_10, my:v_0_03 .
 
 
+<irc://irc.perl.org/#perlrdf> a <http://rdfs.org/sioc/types#ChatChannel> .
