@@ -12,7 +12,7 @@ use RDF::Trine::Graph;
 use Scalar::Util qw/blessed/;
 
 use base 'Test::Builder::Module';
-our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_uri hasnt_uri has_literal hasnt_literal pattern_target pattern_ok pattern_fail/;
+our @EXPORT = qw/are_subgraphs is_rdf is_valid_rdf isomorph_graphs has_subject has_predicate has_object_uri has_type has_uri hasnt_uri has_literal hasnt_literal pattern_target pattern_ok pattern_fail/;
 
 
 =head1 NAME
@@ -41,6 +41,7 @@ our $VERSION = '1.20';
  has_subject($uri_string, $model, 'Subject URI is found');
  has_predicate($uri_string, $model, 'Predicate URI is found');
  has_object_uri($uri_string, $model, 'Object URI is found');
+ has_type($uri_string, $model, 'Class URI is found');
  has_literal($string, $language, $datatype, $model, 'Literal is found');
  hasnt_literal($string, $language, $datatype, $model, 'Literal is not found');
  pattern_target($model);
@@ -223,6 +224,26 @@ sub has_object_uri {
   my $resource = _resource_uri_checked($uri, $name);
   return $resource unless ($resource);
   my $count = $model->count_statements(undef, undef, $resource);
+  return _single_uri_tests($count, $name);
+}
+
+
+=head2 has_type
+
+Check if the string URI passed as first argument is an RDF class
+instance in any of the statements given in the model given as second
+argument.
+
+=cut
+
+sub has_type {
+  my ($uri, $model, $name) = @_;
+  confess 'No valid model given in test' unless (blessed($model) && $model->isa('RDF::Trine::Model'));
+  my $resource = _resource_uri_checked($uri, $name);
+  return $resource unless ($resource);
+  my $count = $model->count_statements(undef,
+													RDF::Trine::Node::Resource->new('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+													$resource);
   return _single_uri_tests($count, $name);
 }
 
