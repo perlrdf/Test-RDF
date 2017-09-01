@@ -188,15 +188,16 @@ my:v_1-20
 	[ rdfs:label "Skip README.pod for CPAN."@en ; a dcs:Addition ] 
     ] .
 
-my:v_1-21-01
+my:v_1-22
     a           :Version ;
     dc:issued   "2017-08-31"^^xsd:date ;
     rdfs:label "Add has_type function."@en ;
-    :revision   "1.21_01"^^xsd:string ;
-#    owl:sameAs <http://packages.qa.debian.org/libtest-rdf-perl#upstreamsrc_1.20> ;
+    :revision   "1.22"^^xsd:string ;
+    owl:sameAs <http://packages.qa.debian.org/libtest-rdf-perl#upstreamsrc_1.22> ;
     dcs:changeset [
       dcs:item
-	[ rdfs:label "Add has_type function."@en ; a dcs:Addition ] 
+	[ rdfs:label "Add has_type function."@en ; a dcs:Addition ] ,
+	[ rdfs:label "Minor cosmetic changes."@en ; a dcs:Change ] 
     ] .
 
-my:project :release my:v_1-19, my:v_1-20, my:v_1-21-01 .
+my:project :release my:v_1-19, my:v_1-20, my:v_1-22 .
