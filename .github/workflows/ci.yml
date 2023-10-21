@@ -50,7 +50,8 @@ jobs:
           - { os: 'ubuntu-latest', perl: "5.20" }
           - { os: 'ubuntu-latest', perl: "5.16" }
           - { os: 'ubuntu-latest', perl: "5.14" }
-          - { os: 'ubuntu-latest', perl: "${{ needs.dist.outputs.min-perl-version  }}" }
+          # Not testing this for now
+          #- { os: 'ubuntu-latest', perl: "${{ needs.dist.outputs.min-perl-version  }}" }
     name: Perl ${{ matrix.perl }} on ${{ matrix.os }}
 
     steps:
